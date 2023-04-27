@@ -25,8 +25,8 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'menu',
-    loadChildren:()=>import('./menu/menu.module').then((m)=>m.MenuModule),
+    path:'modules',
+    loadChildren:()=>import('./ModuleManagement/moduleMgt.module').then((m)=>m.ModuleManagementModule),
     canActivate:[AuthGuard]
   },
   {

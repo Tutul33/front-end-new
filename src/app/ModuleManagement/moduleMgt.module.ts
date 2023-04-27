@@ -7,9 +7,14 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { MENU_STATE_NAME } from "./state/menu.selector";
 import { menuReducer } from "./state/menu.reducer";
+import { ModulesComponent } from './modules/modules.component';
 const routes: Routes = [
     {
         path: '',
+        component: ModulesComponent
+    },
+    {
+        path: 'menus',
         component: MenusComponent
     }
 ]
@@ -22,8 +27,10 @@ const routes: Routes = [
         EffectsModule.forFeature(),
         StoreModule.forFeature(MENU_STATE_NAME, menuReducer),
     ],
-    declarations: []
+    declarations: [
+    ModulesComponent
+  ]
 })
-export class MenuModule {
+export class ModuleManagementModule {
 
 }
