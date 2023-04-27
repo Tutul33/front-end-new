@@ -2,15 +2,15 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { deleteUser, loadUsers } from '../state/users.action';
-import { IUserModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/models/userModels/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './add-edit-user/userDialogComponent';
 import { Subscription } from 'rxjs';
 import { getUserAll} from '../state/users.selector';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SearchModel } from 'src/app/models/search.model';
-import { PagerService } from 'src/app/services/paginator.service';
+import { SearchModel } from 'src/app/models/commonModels/search.model';
+import { PagerService } from 'src/app/services/commonServices/paginator.service';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',

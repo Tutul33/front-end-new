@@ -1,5 +1,5 @@
 import { EntityState,createEntityAdapter } from "@ngrx/entity";
-import { Post } from "src/app/models/post.model";
+import { Post } from "src/app/models/postModels/post.model";
 
 export interface PostsState extends EntityState<Post>{
   

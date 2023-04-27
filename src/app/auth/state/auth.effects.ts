@@ -1,15 +1,15 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { autoLogOut, autoLogin, dycryptKeyToChangePassword, dycryptKeyToChangePasswordSuccess, loginFail, loginStart, loginSuccess, loginSuccessfirebase, setChangePassword, setChangePasswordFailed, setChangePasswordSuccess, setForgotPassword, setForgotPasswordSuccess, setToggle, setToggleSuccess, signupStart, signupSuccess } from './auth.actions';
 import { Observable, catchError, exhaustMap, filter, map, mergeMap, of, switchMap, tap } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/commonServices/auth.service';
 import { Injectable } from '@angular/core';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { setErrorMessage, setLoadingSpinner } from 'src/app/store/Shared/shared.action';
 import { Router } from '@angular/router';
-import { MessageService } from 'src/app/services/toastr.service';
-import { User } from 'src/app/models/user.model';
-import { changePass } from 'src/app/models/changePass.model';
+import { MessageService } from 'src/app/services/commonServices/toastr.service';
+import { User } from 'src/app/models/userModels/user.model';
+import { changePass } from 'src/app/models/authModels/changePass.model';
 @Injectable()
 export class AuthEffects {
     constructor(

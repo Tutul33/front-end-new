@@ -2,7 +2,7 @@ import { Component,Inject, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
-import { IUserModel } from "src/app/models/user.model";
+import { IUserModel } from "src/app/models/userModels/user.model";
 import { AppState } from "src/app/store/app.state";
 import { addUser, updateUser } from "../../state/users.action";
 

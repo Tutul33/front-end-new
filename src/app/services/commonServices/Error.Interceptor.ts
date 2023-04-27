@@ -2,8 +2,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { Observable, catchError, throwError } from "rxjs";
 import { Store } from "@ngrx/store";
-import { AppState } from "../store/app.state";
-import { autoLogOut } from "../auth/state/auth.actions";
+import { AppState } from "../../store/app.state";
+import { autoLogOut } from "../../auth/state/auth.actions";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

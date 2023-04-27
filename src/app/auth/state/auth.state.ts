@@ -1,5 +1,5 @@
-import { changePass } from "src/app/models/changePass.model";
-import { User, UserModel } from "src/app/models/user.model";
+import { changePass } from "src/app/models/authModels/changePass.model";
+import { User, UserModel } from "src/app/models/userModels/user.model";
 
 export interface AuthState {
     //user: User | null;

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { UserService } from "src/app/services/user.service";
+import { UserService } from "src/app/services/userServices/user.service";
 import { AppState } from "src/app/store/app.state";
 import {
     addUser, addUserSuccess,
@@ -13,9 +13,9 @@ import { catchError, exhaustMap, filter, map, mergeMap, of, switchMap, tap } fro
 import { Router } from "@angular/router";
 import { ROUTER_NAVIGATION, RouterNavigatedAction } from "@ngrx/router-store";
 import { Update } from "@ngrx/entity";
-import { IUserModel, UserModel } from "src/app/models/user.model";
+import { IUserModel, UserModel } from "src/app/models/userModels/user.model";
 import { setErrorMessage, setLoadingSpinner } from "src/app/store/Shared/shared.action";
-import { MessageService } from "src/app/services/toastr.service";
+import { MessageService } from "src/app/services/commonServices/toastr.service";
 @Injectable()
 export class UsersEffects {
     constructor(

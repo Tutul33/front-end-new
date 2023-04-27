@@ -1,5 +1,5 @@
 import { EntityState, createEntityAdapter } from "@ngrx/entity";
-import { IUserModel, UserModel } from "src/app/models/user.model";
+import { IUserModel, UserModel } from "src/app/models/userModels/user.model";
 
 // export interface UsersState extends EntityState<IUserModel>{}
 // export const userAdapter=createEntityAdapter<IUserModel>();

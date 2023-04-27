@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { changePass } from "src/app/models/changePass.model";
-import { User, UserModel } from "src/app/models/user.model";
+import { changePass } from "src/app/models/authModels/changePass.model";
+import { User, UserModel } from "src/app/models/userModels/user.model";
 export const LOGIN_START = '[Auth page] login start';
 export const LOGIN_SUCCESS = '[Auth page] login success';
 export const LOGIN_FAIL = '[Auth page] login fail';

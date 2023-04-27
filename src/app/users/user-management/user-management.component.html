@@ -34,44 +34,46 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <div class="col-lg-12" *ngIf="userList" style="padding:0 !important;">
-        <div class="pull-left c-margin-t-20">
-          <span class="btn c-btn c-btn-grey c-btn-uppercase">
-            Showing <span class="text-success"><b>{{pageStart}}</b></span>
-            to <span class="text-success"><b>{{pageEnd}}</b></span>
-            of <span class="text-success"><b>{{totalRows}}</b></span>
-            entries
-          </span>
-        </div>
-        <div class="pull-right">
-          <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-            <li>
-              <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary"
-                [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(1,true)"><i
-                  class="fa fa-angle-double-left" aria-hidden="true"></i>Start</a>
-            </li>
-            <li>
-              <a href="javascript:void(0);" class="btn btn-sm btn-outline-info"
-                [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(pager.currentPage - 1,true)"><i
-                  class="fa fa-angle-left" aria-hidden="true"></i>Prev</a>
-            </li>
-            <li *ngFor="let page of pager.pages">
-              <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary"
-                [ngClass]="{active:pager.currentPage === page}" (click)="setPaging(page,true)">{{page}}</a>
-            </li>
-            <li>
-              <a href="javascript:void(0);" class="btn btn-sm btn-outline-info"
-                [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
-                (click)="setPaging(pager.currentPage + 1,true)"><i class="fa fa-angle-right"
-                  aria-hidden="true"></i>Next</a>
-            </li>
-            <li>
-              <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary"
-                [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
-                (click)="setPaging(pager.totalPages,true)"><i class="fa fa-angle-double-right"
-                  aria-hidden="true"></i>End</a>
-            </li>
-          </ul>
+      <div class="row">
+        <div class="col-lg-12" *ngIf="pageSize<totalRows" style="padding:0 !important;">
+          <div class="float-start">
+            <span class="btn c-btn c-btn-grey c-btn-uppercase">
+              Showing <span class="text-success"><b>{{pageStart}}</b></span>
+              to <span class="text-success"><b>{{pageEnd}}</b></span>
+              of <span class="text-success"><b>{{totalRows}}</b></span>
+              entries
+            </span>
+          </div>
+          <div class="float-end">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+              <li>
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary"
+                  [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(1,true)"><i
+                    class="fa fa-angle-double-left" aria-hidden="true"></i>Start</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-info"
+                  [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(pager.currentPage - 1,true)"><i
+                    class="fa fa-angle-left" aria-hidden="true"></i>Prev</a>
+              </li>
+              <li *ngFor="let page of pager.pages">
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary"
+                  [ngClass]="{active:pager.currentPage === page}" (click)="setPaging(page,true)">{{page}}</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-info"
+                  [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
+                  (click)="setPaging(pager.currentPage + 1,true)"><i class="fa fa-angle-right"
+                    aria-hidden="true"></i>Next</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary"
+                  [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
+                  (click)="setPaging(pager.totalPages,true)"><i class="fa fa-angle-double-right"
+                    aria-hidden="true"></i>End</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

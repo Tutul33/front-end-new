@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { autoLogOut } from 'src/app/auth/state/auth.actions';
 import { getUserInfo } from 'src/app/auth/state/auth.selector';
-import { IUserModel, UserModel } from 'src/app/models/user.model';
+import { IUserModel, UserModel } from 'src/app/models/userModels/user.model';
 import { AppState } from 'src/app/store/app.state';
 
 @Component({

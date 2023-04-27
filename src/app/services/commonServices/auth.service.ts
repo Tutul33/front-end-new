@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { AuthResponseData } from "../models/AuthResponseData";
+import { environment } from '../../../environments/environment';
+import { AuthResponseData } from "../../models/authModels/AuthResponseData";
 import { Observable, of } from "rxjs";
-import { IUserModel, User, UserModel } from "../models/user.model";
+import { IUserModel, User, UserModel } from "../../models/userModels/user.model";
 import { Store } from "@ngrx/store";
-import { AppState } from "../store/app.state";
-import { autoLogOut } from "../auth/state/auth.actions";
-import { changePass } from "../models/changePass.model";
+import { AppState } from "../../store/app.state";
+import { autoLogOut } from "../../auth/state/auth.actions";
+import { changePass } from "../../models/authModels/changePass.model";
 @Injectable({
     providedIn: 'root'
 })

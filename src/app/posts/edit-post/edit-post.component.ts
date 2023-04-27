@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { getPostById } from '../state/post.selector';
-import { Post } from 'src/app/models/post.model';
+import { Post } from 'src/app/models/postModels/post.model';
 import { Subscription } from 'rxjs';
 import { updatePost } from '../state/post.actions';
 

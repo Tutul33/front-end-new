@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/models/post.model';
+import { Post } from 'src/app/models/postModels/post.model';
 import { AppState } from 'src/app/store/app.state';
 import { getPostById } from '../state/post.selector';
 

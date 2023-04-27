@@ -1,5 +1,5 @@
-import { PagingModel } from "./paging.model";
-import { SearchModel } from "./search.model";
+import { PagingModel } from "../commonModels/paging.model";
+import { SearchModel } from "../commonModels/search.model";
 
 export class User {
     constructor(

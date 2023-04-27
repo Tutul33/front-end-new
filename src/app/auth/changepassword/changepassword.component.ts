@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/userModels/user.model';
 import { AppState } from 'src/app/store/app.state';
 import { dycryptKeyToChangePassword, setChangePassword } from '../state/auth.actions';
 import { Subscription } from 'rxjs';
 import { getUserPassChangeInfo } from '../state/auth.selector';
 import { ActivatedRoute } from '@angular/router';
-import { changePass } from 'src/app/models/changePass.model';
+import { changePass } from 'src/app/models/authModels/changePass.model';
 import { setLoadingSpinner } from 'src/app/store/Shared/shared.action';
 
 @Component({

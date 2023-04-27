@@ -4,7 +4,7 @@ import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { getToggle, getUserInfo, isAuthenticated } from 'src/app/auth/state/auth.selector';
 import { autoLogOut, setToggle } from 'src/app/auth/state/auth.actions';
-import { UserModel } from 'src/app/models/user.model';
+import { UserModel } from 'src/app/models/userModels/user.model';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
