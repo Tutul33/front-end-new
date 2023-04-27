@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from './login/login.component';
 import { EffectsModule } from "@ngrx/effects";
-import { AuthEffects } from "./state/auth.effects";
 import { SignupComponent } from './signup/signup.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
