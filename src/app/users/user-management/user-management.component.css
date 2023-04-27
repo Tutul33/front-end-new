@@ -1,0 +1,16 @@
+.user-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .userform-full-width {
+    width: 100%;
+  }
+  button {
+    margin-right: 8px;
+  }
+  
+table {
+  width: 100%;
+}

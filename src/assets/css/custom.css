@@ -1,0 +1,40 @@
+.font-size-11px{
+    font-size: 11px !important;
+}
+.logo-height-weight{
+    height: 40px;
+    width: auto;
+}
+.login-btn-color{
+    background-color:#263B8D !important;
+}
+.default-color{
+    color:#263B8D !important;
+}
+.c-sidebar-brand {
+    color: #f8f9fa;
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+    padding: 0.495rem 1.5rem;
+    background-color: ghostwhite;
+}
+.sidebar-user-subtitle{
+    color:#e9ecef
+}
+.c-nav-bottom-border{
+    border-bottom-style: solid;
+    border-bottom-color: dimgray;
+    border-bottom-width: 1px;
+}
+.profile-pic{
+    height: 60px !important;
+    width: 60px !important;
+}
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 1040 !important;
+}
+.cursor-pointer{
+    cursor: pointer;
+}

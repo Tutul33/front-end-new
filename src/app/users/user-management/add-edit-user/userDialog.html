@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>User {{title}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="userFrom" class="user-form" #f="ngForm">
+        <div class="mb-3">
+            <mat-form-field class="userform-full-width" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput type="firstName" class="form-control" formControlName="firstName">
+                <div class="text-warning">{{showFirstNameValidtionError()}}</div>
+            </mat-form-field>
+            
+        </div>
+        <div class="mb-3">
+            <mat-form-field class="userform-full-width" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput type="lastName" class="form-control" formControlName="lastName">
+                <div class="text-warning">{{showLastNameValidtionError()}}</div>
+            </mat-form-field>
+           
+        </div>
+        <div class="mb-3">
+            <mat-form-field class="userform-full-width" appearance="fill">
+                <mat-label>Phone</mat-label>
+                <input matInput type="phone" class="form-control" formControlName="phone">
+            </mat-form-field>
+        </div>
+        <div class="mb-3">
+            <mat-form-field class="userform-full-width" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" class="form-control" formControlName="email">
+                <div class="text-warning">{{showEmailValidtionError()}}</div>
+            </mat-form-field>
+        </div>
+        <div class="mb-3">
+            <mat-form-field class="userform-full-width" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" class="form-control" formControlName="password">
+                <div class="text-warning"> {{showPasswordValidtionError()}}</div>
+            </mat-form-field>
+        </div>
+        <!-- <div class="mb-3">
+            <button mat-raised-button color="primary" id="btnCreateUser"
+                [disabled]="!f.valid">Submit</button>
+        </div> -->
+    </form>  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <!-- <button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial  color="primary" id="btnCreateUser"
+  [disabled]="!f.valid" (click)="onSignUpSubmit()">Ok</button> -->
+  <button mat-raised-button [mat-dialog-close]="data"  color="primary" id="btnCreateUser"
+  [disabled]="!f.valid" (click)="onSignUpSubmit()"><i class="fa fa-save"></i>Save</button> 
+</div>

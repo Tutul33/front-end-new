@@ -1,0 +1,58 @@
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/']">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" [routerLink]="['/counter']">Counter</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"  [routerLink]="['/posts']">Posts</a>
+          </li>
+          <li class="nav-item" *ngIf="!(IsAuthenticated | async)">
+            <a class="nav-link" href="#"  [routerLink]="['/auth']">Login</a>
+          </li>
+          <li class="nav-item" *ngIf="!(IsAuthenticated | async)">
+            <a class="nav-link" href="#"  [routerLink]="['/auth/signup']">Signup</a>
+          </li>
+          <li class="nav-item" *ngIf="(IsAuthenticated | async)">
+            <a class="nav-link" href="#" (click)="onLogOut($event)" >Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+   -->
+   <nav class="sb-topnav navbar navbar-expand c-nav-bottom-border">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="index.html"><img src="../../../assets/img/logo/logo.png" class="logo-height-weight" ></a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" (click)="toggleSideNav()"><i class="fas fa-bars"></i></button>
+    
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
+                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                <li><hr class="dropdown-divider" /></li> -->
+                <a class="dropdown-item" href="javascript:void(0)" (click)="onLogOut($event)" >Log out</a>
+            </ul>
+        </li>
+    </ul>
+  </nav>

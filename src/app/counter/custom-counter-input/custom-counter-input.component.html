@@ -1,0 +1,10 @@
+<div>
+    <div class="my-3">{{designation$|async}}</div>
+    <input placeholder="Enter Value" type="text" [(ngModel)]="value">
+    <button class="btn btn-primary" (click)="addToCounter()">Add To Counter</button>
+</div>
+<div class="my-2">
+    <!-- <input placeholder="Enter Value" type="text" [(ngModel)]="designation"> -->
+
+    <button class="btn btn-info" (click)="changesDesignation()">Chnage</button>
+</div>
