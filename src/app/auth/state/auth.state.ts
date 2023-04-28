@@ -1,4 +1,5 @@
 import { changePass } from "src/app/models/authModels/changePass.model";
+import { Modules } from "../../models/moudleNodels/modules.model";
 import { User, UserModel } from "src/app/models/userModels/user.model";
 
 export interface AuthState {
@@ -7,10 +8,12 @@ export interface AuthState {
     isToggle: boolean;
     isSent: boolean;
     userPass: changePass | null;
+    modules:Modules[]|any;
 }
 export const initialState: AuthState = {
     user: null,
     isToggle: false,
     isSent: false,
-    userPass: null
+    userPass: null,
+    modules:[]
 }

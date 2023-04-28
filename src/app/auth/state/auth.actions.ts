@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { changePass } from "src/app/models/authModels/changePass.model";
+import { Modules } from "../../models/moudleNodels/modules.model";
 import { User, UserModel } from "src/app/models/userModels/user.model";
 export const LOGIN_START = '[Auth page] login start';
 export const LOGIN_SUCCESS = '[Auth page] login success';
@@ -22,28 +23,28 @@ export const loginStartfirebase = createAction(LOGIN_START, props<{ email: strin
 export const loginSuccessfirebase = createAction(LOGIN_SUCCESS, props<{ user: User | null, redirect: boolean }>());
 
 export const loginStart = createAction(LOGIN_START, props<{ email: string, password: string }>());
-export const loginSuccess = createAction(LOGIN_SUCCESS, props<{ user: UserModel | null, redirect: boolean }>());
+export const loginSuccess = createAction(LOGIN_SUCCESS, props<{ user: UserModel | null, modules: Modules[], redirect: boolean }>());
 export const loginFail = createAction(LOGIN_FAIL);
 
 export const signupStartFirebase = createAction(SIGNUP_START, props<{ email: string, password: string }>());
 export const signupSuccessFirebase = createAction(SIGNUP_SUCCESS, props<{ user: User, redirect: boolean }>());
 
-export const signupStart = createAction(SIGNUP_START, props<{ user:UserModel  }>());
+export const signupStart = createAction(SIGNUP_START, props<{ user: UserModel }>());
 export const signupSuccess = createAction(SIGNUP_SUCCESS, props<{ user: UserModel, redirect: boolean }>());
 
 export const autoLogin = createAction(AUTO_LOGIN_ACTION);
 export const autoLogOut = createAction(LOGIN_OUT_ACTION);
 
 export const setToggle = createAction(SET_TOGGLE, props<{ isToggle: boolean }>());
-export const setToggleSuccess = createAction(SET_TOGGLE_SUCCESS, props<{isToggle: boolean }>());
+export const setToggleSuccess = createAction(SET_TOGGLE_SUCCESS, props<{ isToggle: boolean }>());
 
-export const setForgotPassword = createAction(SET_FORGOT_PASSWORD, props<{email: string }>());
-export const setForgotPasswordSuccess = createAction(SET_FORGOT_PASSWORD_SUCCESS, props<{isSent: boolean }>());
+export const setForgotPassword = createAction(SET_FORGOT_PASSWORD, props<{ email: string }>());
+export const setForgotPasswordSuccess = createAction(SET_FORGOT_PASSWORD_SUCCESS, props<{ isSent: boolean }>());
 
-export const dycryptKeyToChangePassword = createAction(SET_DYCRYPT_KEY_START, props<{key: string }>());
-export const dycryptKeyToChangePasswordSuccess = createAction(SET_DYCRYPT_KEY_SUCCESS, props<{userPass: changePass }>());
+export const dycryptKeyToChangePassword = createAction(SET_DYCRYPT_KEY_START, props<{ key: string }>());
+export const dycryptKeyToChangePasswordSuccess = createAction(SET_DYCRYPT_KEY_SUCCESS, props<{ userPass: changePass }>());
 
-export const setChangePassword = createAction(SET_CHANGE_PASSWORD_START, props<{model: changePass }>());
+export const setChangePassword = createAction(SET_CHANGE_PASSWORD_START, props<{ model: changePass }>());
 export const setChangePasswordSuccess = createAction(SET_CHANGE_PASSWORD_SUCCESS);
 export const setChangePasswordFailed = createAction(SET_CHANGE_PASSWORD_FAILED);
 

@@ -7,7 +7,8 @@ const _authReducer = createReducer(
     on(loginSuccess, (state, action) => {
         return {
             ...state,
-            user: action.user
+            user: action.user,
+            modules:action.modules
         }
     }),
     on(signupSuccess, (state, action) => {

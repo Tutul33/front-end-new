@@ -5,9 +5,10 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
-import { MENU_STATE_NAME } from "./state/menu.selector";
-import { menuReducer } from "./state/menu.reducer";
+import { MENU_STATE_NAME } from "./state/module.selector";
+import { moduleReducer } from "./state/module.reducer";
 import { ModulesComponent } from './modules/modules.component';
+
 const routes: Routes = [
     {
         path: '',
@@ -25,7 +26,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         RouterModule.forChild(routes),
         EffectsModule.forFeature(),
-        StoreModule.forFeature(MENU_STATE_NAME, menuReducer),
+        StoreModule.forFeature(MENU_STATE_NAME, moduleReducer),
     ],
     declarations: [
     ModulesComponent

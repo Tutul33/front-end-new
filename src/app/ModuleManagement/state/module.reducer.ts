@@ -1,8 +1,8 @@
 import { createReducer, on } from "@ngrx/store"
-import { initialState } from "./menu.state";
-import { loadMenuSuccess } from "./menu.actions";
+import { initialState } from "./module.state";
+import { loadMenuSuccess } from "./module.actions";
 
- export const menuReducer=createReducer(initialState,
+ export const moduleReducer=createReducer(initialState,
     // on(
     //    loadMenuSuccess,
     //    (state, _action) => {        

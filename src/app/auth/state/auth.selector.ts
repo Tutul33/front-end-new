@@ -20,3 +20,7 @@ export const getUserPassChangeInfo=createSelector(getAuthState,(state)=>{
 export const getUserInfo=createSelector(getAuthState,(state)=>{
     return state.user;
 });
+export const getAthourizedModules=createSelector(getAuthState,(state)=>{
+    return state.modules;
+});
+

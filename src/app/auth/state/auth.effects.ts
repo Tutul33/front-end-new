@@ -8,8 +8,8 @@ import { Store } from '@ngrx/store';
 import { setErrorMessage, setLoadingSpinner } from 'src/app/store/Shared/shared.action';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/services/commonServices/toastr.service';
-import { User } from 'src/app/models/userModels/user.model';
 import { changePass } from 'src/app/models/authModels/changePass.model';
+import { Modules } from "../../models/moudleNodels/modules.model";
 @Injectable()
 export class AuthEffects {
     constructor(
@@ -31,8 +31,9 @@ export class AuthEffects {
                         if (data.isSuccess) {
                             const user = this.authServie.formatUser(data);
                             this.authServie.setUserInLocalStorage(user);
+                            this.authServie.setModuleInLocalStorage(data.modules);
                             this.messageService.showSuccessMessage('Login successfully.');
-                            return loginSuccess({ user, redirect: true });                            
+                            return loginSuccess({ user, modules:data.modules,redirect: true });                            
                         } else {
                             this.messageService.showErrorMessage('Login failed.Please try again.');
                             return loginFail();
@@ -48,26 +49,7 @@ export class AuthEffects {
                 )
             }))
     })
-    // loginFirebase$ = createEffect(() => {
-    //     return this.action$.pipe(
-    //         ofType(loginStart),
-    //         exhaustMap((action) => {
-    //             return this.authServie.loginFirebase(action.email, action.password).pipe(
-    //                 map((data) => {
-    //                     this.store.dispatch(setLoadingSpinner({ status: false }))
-    //                     this.store.dispatch(setErrorMessage({ message: '' }))
-    //                     const user = this.authServie.formatFirebaseUser(data);
-    //                     this.authServie.setUserInLocalStorageFirebase(user);
-    //                     return loginSuccessfirebase({ user, redirect: true });
-    //                 }),
-    //                 catchError((errorRes) => {
-    //                     this.store.dispatch(setLoadingSpinner({ status: false }))
-    //                     const errorMessage = this.authServie.getErrorMessage(errorRes.error.error.message);
-    //                     return of(setErrorMessage({ message: errorMessage }));
-    //                 })
-    //             )
-    //         }))
-    // })
+    
     loginRedirect$ = createEffect(
         () => {
             return this.action$.pipe(ofType(...[loginSuccess, signupSuccess]),
@@ -230,7 +212,8 @@ export class AuthEffects {
             ofType(autoLogin),
             mergeMap((action) => {
                 const user = this.authServie.getUserFromLocalStorage();
-                return of(loginSuccess({ user, redirect: false }));
+                const modules = this.authServie.getModulesFromLocalStorage();
+                return of(loginSuccess({ user,modules, redirect: false }));
             })
         );
     }

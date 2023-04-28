@@ -8,6 +8,8 @@ import { Store } from "@ngrx/store";
 import { AppState } from "../../store/app.state";
 import { autoLogOut } from "../../auth/state/auth.actions";
 import { changePass } from "../../models/authModels/changePass.model";
+import { LoginModel } from "src/app/models/authModels/login.model";
+import { Modules } from "../../models/moudleNodels/modules.model";
 @Injectable({
     providedIn: 'root'
 })
@@ -22,8 +24,8 @@ export class AuthService {
             { email, password, returnSecureToken: true }
         );
     }
-    login(email: string, password: string): Observable<IUserModel> {
-        return this.http.post<IUserModel>(
+    login(email: string, password: string): Observable<LoginModel> {
+        return this.http.post<LoginModel>(
             `http://localhost:5207/api/login/userlogin`,
             { userName:email, password}
         );
@@ -35,8 +37,8 @@ export class AuthService {
             { email, password, returnSecureToken: true }
         );
     }
-    signup(model:UserModel): Observable<IUserModel> {
-        return this.http.post<IUserModel>(
+    signup(model:UserModel): Observable<LoginModel> {
+        return this.http.post<LoginModel>(
             `http://localhost:5207/api/login/UserRegistration`,
             model
         );
@@ -63,7 +65,7 @@ export class AuthService {
         const user = new User(data.email, data.idToken, data.localId, expirationDate,'','','');
         return user;
     }
-    formatUser(data: IUserModel) {
+    formatUser(data: LoginModel) {
         //const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000);
         const user=new UserModel(
             data.token as string, 
@@ -80,6 +82,12 @@ export class AuthService {
              data.expireDate as Date);
         return user;
     }
+    formatModules(data: Modules[]) {
+        //const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000);
+        const modules:Modules[]=[];
+        return modules;
+    }
+    
     getErrorMessage(message: string) {
         switch (message) {
             case 'EMAIL_NOT_FOUND':
@@ -99,6 +107,9 @@ export class AuthService {
     setUserInLocalStorage(user: UserModel) {
         localStorage.setItem('userData', JSON.stringify(user));
         this.runTimeOutInterval(user);
+    }
+    setModuleInLocalStorage(modules: Modules[]|undefined) {
+        localStorage.setItem('modules', JSON.stringify(modules));
     }
     setToggleDataInLocalStorage(isToggle: boolean) {
         localStorage.setItem('sb|sidebar-toggle', JSON.stringify(isToggle));
@@ -124,7 +135,7 @@ export class AuthService {
 
         if (userDataString) {
             const data = JSON.parse(userDataString);
-            const expirationDate = new Date(data.expirationDate);
+            //const expirationDate = new Date(data.expirationDate);
             const user=new UserModel(
                 data.token, 
                 data.loginId, 
@@ -143,6 +154,20 @@ export class AuthService {
         }
         return null;
     }
+    getModulesFromLocalStorage() {
+        const modulesDataString = localStorage.getItem('modules');
+
+        const modules:Modules[]=[];
+
+        if (modulesDataString) {
+            const data = JSON.parse(modulesDataString);
+            data.forEach((item:Modules)=> {
+                modules.push(item);
+            });
+            return modules;
+        }
+        return modules;
+    }
     getUserFromLocalStorageFirebase() {
         const userDataString = localStorage.getItem('userData');
 
@@ -158,6 +183,7 @@ export class AuthService {
     
     logout() {
         localStorage.removeItem('userData');
+        localStorage.removeItem('modules');
         if (this.timeOutInterval) {
             clearTimeout(this.timeOutInterval);
             this.timeOutInterval = null;

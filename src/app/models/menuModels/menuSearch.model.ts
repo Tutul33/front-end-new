@@ -1,6 +1,6 @@
 import { Menu } from "./menu.model";
 
 export interface MenuModels{
-    userList:Menu[];
+    menuList:Menu[];
     total:number;
 }
