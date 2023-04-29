@@ -9,14 +9,7 @@ const _authReducer = createReducer(
             ...state,
             user: action.user,
             modules:action.modules,
-            currentModuleId: action.currentModulePath.moduleId,
-            currentModulePath:action.currentModulePath.modulePath,
-            currentMenuId:action.currentModulePath.menuId,
-            currentMenuPath:action.currentModulePath.menuPath,
-            canCreate:action.currentModulePath.canCreate,
-            canDelete:action.currentModulePath.canDelete,
-            canEdit:action.currentModulePath.canEdit,
-            canView:action.currentModulePath.canView
+            currentModulePath:action.currentModulePath
         }
     }),
     // on(signupSuccess, (state, action) => {
@@ -55,14 +48,7 @@ const _authReducer = createReducer(
     on(setCurrentModuleMenuDataSuccess, (state,action) => {
         return {
             ...state,
-            currentModuleId: action.currentModulePath.moduleId,
-            currentModulePath:action.currentModulePath.modulePath,
-            currentMenuId:action.currentModulePath.menuId,
-            currentMenuPath:action.currentModulePath.menuPath,
-            canCreate:action.currentModulePath.canCreate,
-            canDelete:action.currentModulePath.canDelete,
-            canEdit:action.currentModulePath.canEdit,
-            canView:action.currentModulePath.canView
+            currentModulePath: action.currentModulePath
         }
     })
 );

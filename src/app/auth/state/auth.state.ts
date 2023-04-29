@@ -1,6 +1,7 @@
 import { changePass } from "src/app/models/authModels/changePass.model";
 import { Modules } from "../../models/moudleNodels/modules.model";
 import { User, UserModel } from "src/app/models/userModels/user.model";
+import { currentModulePath } from "src/app/models/commonModels/currentModulePath";
 
 export interface AuthState {
     //user: User | null;
@@ -9,14 +10,7 @@ export interface AuthState {
     isSent: boolean;
     userPass: changePass | null;
     modules: Modules[] | any;
-    currentModuleId: number | 0;
-    currentModulePath: string | "";
-    currentMenuId: number | 0;
-    currentMenuPath: string | "";
-    canCreate: boolean | false;
-    canView: boolean | false;
-    canEdit: boolean | false;
-    canDelete: boolean | false;
+    currentModulePath:currentModulePath|any
 }
 export const initialState: AuthState = {
     user: null,
@@ -24,12 +18,5 @@ export const initialState: AuthState = {
     isSent: false,
     userPass: null,
     modules: [],
-    currentModuleId: 0,
-    currentModulePath: "",
-    currentMenuId: 0,
-    currentMenuPath: "",
-    canCreate: false,
-    canView: false,
-    canEdit: false,
-    canDelete: false
+    currentModulePath:null
 }

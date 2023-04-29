@@ -5,13 +5,14 @@ import { deleteUser, loadUsers } from '../state/users.action';
 import { IUserModel } from 'src/app/models/userModels/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './add-edit-user/userDialogComponent';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { getUserAll} from '../state/users.selector';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SearchModel } from 'src/app/models/commonModels/search.model';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
 import { getAthourizedActions, getAthourizedModules } from 'src/app/auth/state/auth.selector';
+import { currentModulePath } from 'src/app/models/commonModels/currentModulePath';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -25,6 +26,18 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   //@ViewChild(MatPaginator) paginator: MatPaginator | any;
   userSubscription: Subscription | any;
   moduleSubscription: Subscription|any;
+  currentMdPath: currentModulePath={
+    moduleId: 0,
+    modulePath: '',
+    menuId: 0,
+    menuPath: '',
+    canCreate: false,
+    canView: false,
+    canEdit: false,
+    canDelete: false
+  };
+  
+  authourizedData!: Observable<currentModulePath>;
   //Dialog
   exitAnimationDuration: string="500ms"; 
   enterAnimationDuration: string="500ms";
@@ -57,19 +70,19 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
     this.loadAuthourizedData();
     this.loadUser(0);    
   }
-  authourizedData:any={moduleId:0,modulepath:'',menuId:0,menuPath:'',canCreate:false,canView:false,canDelete:false,canEdit:false};
+ 
   loadAuthourizedData(){
+    //this.authourizedData=this.store.select(getAthourizedActions);
     this.moduleSubscription=this.store.select(getAthourizedActions).subscribe((data)=>{
       if(data){
-        console.log(data);
-        this.authourizedData.moduleId=data.moduleId;
-        this.authourizedData.modulepath=data.modulepath;
-        this.authourizedData.menuId=data.moduleId;
-        this.authourizedData.menuPath=data.menuPath;
-        this.authourizedData.canCreate=data.canCreate;
-        this.authourizedData.canView=data.canView;
-        this.authourizedData.canDelete=data.canDelete;
-        this.authourizedData.canEdit=data.canEdit;
+        this.currentMdPath.moduleId=data.moduleId;
+        this.currentMdPath.modulePath=data.modulePath;
+        this.currentMdPath.menuId=data.moduleId;
+        this.currentMdPath.menuPath=data.menuPath;
+        this.currentMdPath.canCreate=data.canCreate;
+        this.currentMdPath.canView=data.canView;
+        this.currentMdPath.canDelete=data.canDelete;
+        this.currentMdPath.canEdit=data.canEdit;
       }      
     });
   }
