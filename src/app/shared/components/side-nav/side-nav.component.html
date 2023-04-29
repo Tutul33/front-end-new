@@ -17,7 +17,8 @@
                     </ul>
                 </ul>
                 <div class="d-block" *ngIf="user | async as user">
-                    {{user.userFullName}}
+                    <div class="text-info d-block">{{user.userFullName}}</div>
+                    <div class="text-warning d-block">{{user.userRoleName}}</div>
                 </div>
             </span>
         </div>
@@ -45,11 +46,11 @@
             </div> -->
             <div *ngFor="let module of (modules| async);let im=index ">
                 <div class="p-0" *ngFor="let item of module.menus;let imn=index">
-                    <a class="nav-link" routerLink="{{item.menuPath}}" *ngIf="item.menuList.length==0" >
+                    <a class="nav-link" routerLink="{{item.menuPath}}" (click)="onModuleClick($event,module,item)" *ngIf="item.menuList.length==0" >
                         <div class="sb-nav-link-icon"><i class="{{item.menuIcon}}"></i></div>
                         {{item.menuName}}
                     </a>
-                    <a class="nav-link collapsed" routerLink="{{item.menuPath}}"  *ngIf="item.menuList.length>0" 
+                    <a class="nav-link collapsed" routerLink="{{item.menuPath}}"  (click)="onModuleClick($event,module,item)" *ngIf="item.menuList.length>0" 
                         data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false"
                         aria-controls="pagesCollapseAuth">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -59,9 +60,9 @@
                     <div class="collapse" id="pagesCollapseAuth"  aria-labelledby="headingOne"  *ngIf="item.menuList.length>0" 
                         data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" routerLink="{{itemChild.menuPath}}"
+                            <a class="nav-link" routerLink="{{itemChild.menuPath}}" (click)="onMenuClick($event,module,itemChild)"
                                 *ngFor="let itemChild of item.menuList;let ic=index "><i
-                                    class="fa fa-bars"></i>&nbsp;{{itemChild.menuName}}</a>
+                                    class="{{itemChild.menuIcon}}"></i>&nbsp;{{itemChild.menuName}}</a>
                         </nav>
                     </div>
                 </div>

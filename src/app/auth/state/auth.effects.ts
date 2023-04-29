@@ -1,5 +1,5 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { autoLogOut, autoLogin, dycryptKeyToChangePassword, dycryptKeyToChangePasswordSuccess, loginFail, loginStart, loginSuccess, loginSuccessfirebase, setChangePassword, setChangePasswordFailed, setChangePasswordSuccess, setForgotPassword, setForgotPasswordSuccess, setToggle, setToggleSuccess, signupStart, signupSuccess } from './auth.actions';
+import { autoLogOut, autoLogin, dycryptKeyToChangePassword, dycryptKeyToChangePasswordSuccess, loginFail, loginStart, loginSuccess, loginSuccessfirebase, setChangePassword, setChangePasswordFailed, setChangePasswordSuccess, setCurrentModuleMenuData, setCurrentModuleMenuDataSuccess, setForgotPassword, setForgotPasswordSuccess, setToggle, setToggleSuccess, signupStart, signupSuccess } from './auth.actions';
 import { Observable, catchError, exhaustMap, filter, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/commonServices/auth.service';
 import { Injectable } from '@angular/core';
@@ -9,7 +9,7 @@ import { setErrorMessage, setLoadingSpinner } from 'src/app/store/Shared/shared.
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/services/commonServices/toastr.service';
 import { changePass } from 'src/app/models/authModels/changePass.model';
-import { Modules } from "../../models/moudleNodels/modules.model";
+import { currentModulePath } from 'src/app/models/commonModels/currentModulePath';
 @Injectable()
 export class AuthEffects {
     constructor(
@@ -20,6 +20,25 @@ export class AuthEffects {
         private route: Router) {
 
     }
+    setCurrentModuleMenuData$ = createEffect(() => {
+        return this.action$.pipe(
+            ofType(setCurrentModuleMenuData),
+            mergeMap((action) => {
+                const currentModulePath:currentModulePath={
+                    moduleId:action.currentModulePath.moduleId,
+                    modulePath:action.currentModulePath.modulePath,
+                    menuId:action.currentModulePath.menuId,
+                    menuPath: action.currentModulePath.menuPath,
+                    canCreate: action.currentModulePath.canCreate,
+                    canView: action.currentModulePath.canView,
+                    canEdit: action.currentModulePath.canEdit,
+                    canDelete: action.currentModulePath.canDelete
+                }
+                localStorage.setItem('currentModuleAndPath', JSON.stringify(currentModulePath));
+                return of(setCurrentModuleMenuDataSuccess({currentModulePath}));
+            })
+            )
+    })
     login$ = createEffect(() => {
         return this.action$.pipe(
             ofType(loginStart),
@@ -33,7 +52,17 @@ export class AuthEffects {
                             this.authServie.setUserInLocalStorage(user);
                             this.authServie.setModuleInLocalStorage(data.modules);
                             this.messageService.showSuccessMessage('Login successfully.');
-                            return loginSuccess({ user, modules:data.modules,redirect: true });                            
+                            const currentModulePath:currentModulePath={
+                                moduleId: 0,
+                                modulePath: '',
+                                menuId: 0,
+                                menuPath: '',
+                                canCreate: false,
+                                canView: false,
+                                canEdit: false,
+                                canDelete: false
+                            }
+                            return loginSuccess({ user, modules:data.modules,redirect: true,currentModulePath });                            
                         } else {
                             this.messageService.showErrorMessage('Login failed.Please try again.');
                             return loginFail();
@@ -50,14 +79,43 @@ export class AuthEffects {
             }))
     })
     
+    // loginRedirect$ = createEffect(
+    //     () => {
+    //         return this.action$.pipe(ofType(...[loginSuccess, signupSuccess]),
+    //             tap((action) => {
+    //                 this.store.dispatch(setErrorMessage({ message: '' }));
+    //                 if (action.redirect) {
+    //                     this.route.navigate(['/']);
+    //                 }
+
+    //             })
+    //         )
+    //     }, {
+    //     dispatch: false
+    // }
+    // );
     loginRedirect$ = createEffect(
         () => {
-            return this.action$.pipe(ofType(...[loginSuccess, signupSuccess]),
+            return this.action$.pipe(ofType(loginSuccess),
                 tap((action) => {
                     this.store.dispatch(setErrorMessage({ message: '' }));
                     if (action.redirect) {
                         this.route.navigate(['/']);
                     }
+
+                })
+            )
+        }, {
+        dispatch: false
+    }
+    );
+    signupSuccessRedirect$ = createEffect(
+        () => {
+            return this.action$.pipe(ofType(signupSuccess),
+                tap((action) => {
+                    this.store.dispatch(setErrorMessage({ message: '' }));
+                    
+                        this.route.navigate(['/auth/login']);                    
 
                 })
             )
@@ -114,8 +172,8 @@ export class AuthEffects {
                     map((data) => {
                         this.store.dispatch(setLoadingSpinner({ status: false }))
                         this.messageService.showSuccessMessage('User registration is completed.');
-                        const user = this.authServie.formatUser(data);
-                        return signupSuccess({ user, redirect: true });
+                        //const user = this.authServie.formatUser(data);
+                        return signupSuccess();
                     }), catchError((errorRes) => {
                         this.store.dispatch(setLoadingSpinner({ status: false }))
                         const errorMessage = this.authServie.getErrorMessage(errorRes.error.error.message);
@@ -125,6 +183,7 @@ export class AuthEffects {
             })
         );
     });
+
     sendEmailToChangePassword$ = createEffect(() => {
         return this.action$.pipe(
             ofType(setForgotPassword),
@@ -213,7 +272,8 @@ export class AuthEffects {
             mergeMap((action) => {
                 const user = this.authServie.getUserFromLocalStorage();
                 const modules = this.authServie.getModulesFromLocalStorage();
-                return of(loginSuccess({ user,modules, redirect: false }));
+                const currentModulePath=this.authServie.getCurrentModulePathFromLocalStorage();
+                return of(loginSuccess({ user,modules, redirect: false,currentModulePath }));
             })
         );
     }

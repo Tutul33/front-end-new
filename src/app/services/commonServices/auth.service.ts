@@ -10,6 +10,7 @@ import { autoLogOut } from "../../auth/state/auth.actions";
 import { changePass } from "../../models/authModels/changePass.model";
 import { LoginModel } from "src/app/models/authModels/login.model";
 import { Modules } from "../../models/moudleNodels/modules.model";
+import { currentModulePath } from "src/app/models/commonModels/currentModulePath";
 @Injectable({
     providedIn: 'root'
 })
@@ -79,7 +80,9 @@ export class AuthService {
              data.email,
              data.phone,
              data.isSuccess as boolean,
-             data.expireDate as Date);
+             data.expireDate as Date,
+             data.roleName
+             );
         return user;
     }
     formatModules(data: Modules[]) {
@@ -148,7 +151,9 @@ export class AuthService {
                  data.email,
                  data.phone,
                  data.isSuccess,
-                 data.expireDate);
+                 data.expireDate,
+                 data.roleName);
+                 
             this.runTimeOutInterval(user);
             return user;
         }
@@ -164,6 +169,34 @@ export class AuthService {
             data.forEach((item:Modules)=> {
                 modules.push(item);
             });
+            return modules;
+        }
+        return modules;
+    }
+    getCurrentModulePathFromLocalStorage() {
+        const modulesDataString = localStorage.getItem('currentModuleAndPath');
+
+        const modules:currentModulePath={
+            moduleId: 0,
+            modulePath: "",
+            menuId: 0,
+            menuPath: "",
+            canCreate: false,
+            canView: false,
+            canEdit: false,
+            canDelete: false
+        };
+
+        if (modulesDataString) {
+            const data = JSON.parse(modulesDataString);
+            modules.moduleId=data.moduleId;
+            modules.modulePath=data.modulePath;
+            modules.menuId=data.menuId;
+            modules.menuPath=data.menuPath;
+            modules.canCreate=data.canCreate;
+            modules.canEdit=data.canEdit;
+            modules.canView=data.canView;
+            modules.canDelete=data.canDelete;
             return modules;
         }
         return modules;

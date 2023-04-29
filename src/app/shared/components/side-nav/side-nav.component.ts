@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, map } from 'rxjs';
-import { autoLogOut } from 'src/app/auth/state/auth.actions';
+import { autoLogOut, setCurrentModuleMenuData } from 'src/app/auth/state/auth.actions';
 import { getAthourizedModules, getUserInfo } from 'src/app/auth/state/auth.selector';
 import { Modules } from "../../../models/moudleNodels/modules.model";
-import { IUserModel, UserModel } from 'src/app/models/userModels/user.model';
+import { UserModel } from 'src/app/models/userModels/user.model';
 import { AppState } from 'src/app/store/app.state';
+import { Menu } from 'src/app/models/menuModels/menu.model';
+import { currentModulePath } from '../../../models/commonModels/currentModulePath';
 
 @Component({
   selector: 'app-side-nav',
@@ -13,43 +15,6 @@ import { AppState } from 'src/app/store/app.state';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit,OnDestroy {
-  menu: any[] = [
-    {
-      menuId: 1,
-      menuName: 'Dashboard',
-      menuPath: '/',
-      menuIcon:'fas fa-tachometer-alt',
-      hasChild:false,
-      childMenu: [
-
-      ]
-    },
-    {
-      menuId: 2,
-      menuName: 'User',
-      menuPath: 'users',
-      menuIcon:'fa fa-user',
-      hasChild:false,
-      childMenu: [
-
-      ]
-    },
-    {
-      menuId: 3,
-      menuName: 'Modules',
-      menuPath: 'modules',
-      menuIcon:'fas fa-columns',
-      hasChild:true,
-      childMenu: [
-        {
-          menuId: 1,
-          menuName: 'Menu',
-          menuPath: 'modules/menus',
-          menuIcon:'fa fa-bars',
-        }
-      ]
-    }
-  ];
   user!: Observable<UserModel>;
   modules!:Observable<Modules[]>;
   moduleSubscription: Subscription|any;
@@ -64,12 +29,36 @@ export class SideNavComponent implements OnInit,OnDestroy {
     this.user = this.store.select(getUserInfo);
     this.modules = this.store.select(getAthourizedModules);
     this.moduleSubscription=this.store.select(getAthourizedModules).subscribe((data)=>{
-      console.log(data);
       this.moduleList=data;
     });
   }
+  onModuleClick(event:Event,module:Modules,menu:Menu){
+    const currentModulePath:currentModulePath={
+      moduleId: module.moduleId,
+      modulePath: module.modulePath as string,
+      menuId: menu.menuId,
+      menuPath: menu.menuPath,
+      canCreate: menu.canCreate,
+      canView: menu.canView,
+      canEdit: menu.canEdit,
+      canDelete: menu.canDelete
+  }
+    this.store.dispatch(setCurrentModuleMenuData({currentModulePath}));
 
-
+  }
+  onMenuClick(event:Event,module:Modules,menu:Menu){
+    const currentModulePath:currentModulePath={
+      moduleId: module.moduleId,
+      modulePath: module.modulePath as string,
+      menuId: menu.menuId,
+      menuPath: menu.menuPath,
+      canCreate: menu.canCreate,
+      canView: menu.canView,
+      canEdit: menu.canEdit,
+      canDelete: menu.canDelete
+  }
+    this.store.dispatch(setCurrentModuleMenuData({currentModulePath}));
+  }
   onLogOut(event: Event) {
     event.preventDefault();
     this.store.dispatch(autoLogOut());

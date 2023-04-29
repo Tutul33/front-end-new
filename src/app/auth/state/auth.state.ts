@@ -8,12 +8,28 @@ export interface AuthState {
     isToggle: boolean;
     isSent: boolean;
     userPass: changePass | null;
-    modules:Modules[]|any;
+    modules: Modules[] | any;
+    currentModuleId: number | 0;
+    currentModulePath: string | "";
+    currentMenuId: number | 0;
+    currentMenuPath: string | "";
+    canCreate: boolean | false;
+    canView: boolean | false;
+    canEdit: boolean | false;
+    canDelete: boolean | false;
 }
 export const initialState: AuthState = {
     user: null,
     isToggle: false,
     isSent: false,
     userPass: null,
-    modules:[]
+    modules: [],
+    currentModuleId: 0,
+    currentModulePath: "",
+    currentMenuId: 0,
+    currentMenuPath: "",
+    canCreate: false,
+    canView: false,
+    canEdit: false,
+    canDelete: false
 }

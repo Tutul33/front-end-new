@@ -53,6 +53,7 @@ export class UserModel{
     private phone: string,
     private isSuccess: boolean,
     private expireDate: Date,
+    private roleName: string,
     ) {
 
     }
@@ -71,4 +72,8 @@ export class UserModel{
     get userFullName() {
         return this.fullName;
     }
+    get userRoleName() {
+        return this.roleName;
+    }
+
 }

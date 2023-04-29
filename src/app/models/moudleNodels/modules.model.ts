@@ -9,5 +9,7 @@ export interface Modules{
     modulePath?:string;
     moduleSequence?:number;
     isActive?:boolean
-    menus?:Menu[]
+    menus?:Menu[],
+    isSuccess?:boolean;
+    total?:number;
 }

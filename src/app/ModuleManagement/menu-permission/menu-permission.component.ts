@@ -1,26 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { SearchModel } from 'src/app/models/commonModels/search.model';
+import { Menu, MenuPermission } from 'src/app/models/menuModels/menu.model';
 import { Modules } from 'src/app/models/moudleNodels/modules.model';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
 import { AppState } from 'src/app/store/app.state';
-import { loadMenu, loadModule } from '../state/module.actions';
-import { getModulesAll } from '../state/module.selector';
-
+import { loadMenu, loadMenuPermission } from '../state/module.actions';
+import { getMenuPermissionsAll, getMenusAll } from '../state/module.selector';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
-  selector: 'app-modules',
-  templateUrl: './modules.component.html',
-  styleUrls: ['./modules.component.css'],
+  selector: 'app-menu-permission',
+  templateUrl: './menu-permission.component.html',
+  styleUrls: ['./menu-permission.component.css'],
   providers:[PagerService]
 })
-export class ModulesComponent implements OnInit,OnDestroy{
-  displayedColumns: string[] = ['moduleName', 'modulePath', 'moduleIcon', 'moduleSequence','descrioption','moduleColor','actions'];
+export class MenuPermissionComponent implements OnInit,OnDestroy{
+  displayedColumns: string[] = ['menuName', 'moduleName', 'canCreate', 'canDelete','canView','canEdit','roleName','actions'];
   dataSource: any = [];
   modulesSubscription?:Subscription;
-  moduleList: Modules[]=[];
+  moduleList: MenuPermission[]=[];
   //Pagination
   public pageNumber: number = 0;
   public pageSize: number = 5;
@@ -42,18 +42,17 @@ export class ModulesComponent implements OnInit,OnDestroy{
     if (filterValue!='') {
       this.searchStr=filterValue.trim().toLowerCase();
       this.isPaging=true;
-      this.loadModules(0);
+      this.loadMenus(0);
     }else{
       this.searchStr='';
       this.isPaging=true;
-      this.loadModules(0);
+      this.loadMenus(0);
     }
   }
   ngOnDestroy(): void {
-    this.modulesSubscription?.unsubscribe();
   }
   ngOnInit(): void {
-    this.loadModules(0);
+    this.loadMenus(0);
   }
   clearAll(){
     this.searchStr='';
@@ -67,18 +66,18 @@ export class ModulesComponent implements OnInit,OnDestroy{
   DeleteModule(event:Event,module:Modules){
     
   }
-  loadModules(pageIndex: number) {
+  loadMenus(pageIndex: number) {
     this.pageNumber=pageIndex;
     const searchModel: SearchModel = {
       searching: this.searchStr,
       pageNumber: pageIndex,
       pageSize: this.pageSize
     }
-    this.store.dispatch(loadModule({search:searchModel}));
-    this.modulesSubscription = this.store.select(getModulesAll).subscribe((data) => {
+    this.store.dispatch(loadMenuPermission({search:searchModel}));
+    this.modulesSubscription = this.store.select(getMenuPermissionsAll).subscribe((data) => {
       if (data) {
-        this.moduleList = data.modules;
-        this.dataSource = new MatTableDataSource<Modules>(this.moduleList);
+        this.moduleList = data.menuPermissions;
+        this.dataSource = new MatTableDataSource<MenuPermission>(this.moduleList);
         this.totalRows = data.total;
         //paging info start   
         this.totalRowsInList = this.moduleList.length;
@@ -105,7 +104,7 @@ export class ModulesComponent implements OnInit,OnDestroy{
   setPaging(page: number, isPaging: boolean) {
     this.pager = this.pageService.getPager(this.totalRows, page, this.pageSize);
     if (isPaging) {
-      this.loadModules(page);
+      this.loadMenus(page);
     }
     else {
       this.pagedItems = this.moduleList;

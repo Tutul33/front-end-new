@@ -18,4 +18,5 @@ export interface LoginModel{
     isSuccess?: boolean;
     expireDate?: Date;
     modules:Modules[];
+    roleName:string;
 }
