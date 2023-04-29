@@ -1,5 +1,5 @@
-import { PagingModel } from "./paging.model";
-import { SearchModel } from "./search.model";
+import { PagingModel } from "../commonModels/paging.model";
+import { SearchModel } from "../commonModels/search.model";
 
 export class User {
     constructor(
@@ -53,6 +53,7 @@ export class UserModel{
     private phone: string,
     private isSuccess: boolean,
     private expireDate: Date,
+    private roleName: string,
     ) {
 
     }
@@ -71,4 +72,8 @@ export class UserModel{
     get userFullName() {
         return this.fullName;
     }
+    get userRoleName() {
+        return this.roleName;
+    }
+
 }

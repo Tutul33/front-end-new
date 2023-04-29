@@ -2,15 +2,16 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { deleteUser, loadUsers } from '../state/users.action';
-import { IUserModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/models/userModels/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './add-edit-user/userDialogComponent';
 import { Subscription } from 'rxjs';
 import { getUserAll} from '../state/users.selector';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SearchModel } from 'src/app/models/search.model';
-import { PagerService } from 'src/app/services/paginator.service';
+import { SearchModel } from 'src/app/models/commonModels/search.model';
+import { PagerService } from 'src/app/services/commonServices/paginator.service';
+import { getAthourizedActions, getAthourizedModules } from 'src/app/auth/state/auth.selector';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -21,8 +22,9 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone','actions'];
   dataSource: any = [];
   userList?: IUserModel[];
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
+  //@ViewChild(MatPaginator) paginator: MatPaginator | any;
   userSubscription: Subscription | any;
+  moduleSubscription: Subscription|any;
   //Dialog
   exitAnimationDuration: string="500ms"; 
   enterAnimationDuration: string="500ms";
@@ -45,15 +47,32 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   }
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+    this.moduleSubscription.unsubscribe();
   }
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  ngOnInit(): void {   
-    this.loadUser(0);
+    //this.dataSource.paginator = this.paginator;
   }
   
+  ngOnInit(): void {   
+    this.loadAuthourizedData();
+    this.loadUser(0);    
+  }
+  authourizedData:any={moduleId:0,modulepath:'',menuId:0,menuPath:'',canCreate:false,canView:false,canDelete:false,canEdit:false};
+  loadAuthourizedData(){
+    this.moduleSubscription=this.store.select(getAthourizedActions).subscribe((data)=>{
+      if(data){
+        console.log(data);
+        this.authourizedData.moduleId=data.moduleId;
+        this.authourizedData.modulepath=data.modulepath;
+        this.authourizedData.menuId=data.moduleId;
+        this.authourizedData.menuPath=data.menuPath;
+        this.authourizedData.canCreate=data.canCreate;
+        this.authourizedData.canView=data.canView;
+        this.authourizedData.canDelete=data.canDelete;
+        this.authourizedData.canEdit=data.canEdit;
+      }      
+    });
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     //this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -1,7 +1,7 @@
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { AuthService } from "src/app/services/auth.service";
+import { AuthService } from "src/app/services/commonServices/auth.service";
 import { AppState } from "../app.state";
 import { tap } from "rxjs";
 //import { setToggle } from "./shared.action";

@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { AppState } from "../store/app.state";
+import { AppState } from "../../store/app.state";
 import { HttpClient } from "@angular/common/http";
 import { Observable, map } from "rxjs";
-import { IUserModel, UserModels } from "../models/user.model";
+import { IUserModel, UserModels } from "../../models/userModels/user.model";
 import { environment } from "src/environments/environment";
-import { SearchModel } from "../models/search.model";
+import { SearchModel } from "../../models/commonModels/search.model";
 
 @Injectable({
     providedIn:'root'

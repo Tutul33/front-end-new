@@ -1,0 +1,39 @@
+export interface Menu{
+    menuId:number;
+    menuName:string;
+    moduleId?:number;
+    moduleName:string;
+    parentId:number;
+    isSubParent:boolean;
+    subParentId:number;
+    menuIcon:string;
+    menuPath:string;
+    menuList:Menu[];
+    menuSequence:number;    
+    permissionId:number;
+    canCreate:boolean;
+    canEdit:boolean;
+    canDelete:boolean;
+    canView:boolean;
+    userId:number;
+    roleId:number;
+    isActive?:boolean;    
+    isSuccess?:boolean;
+    total?:number;
+}
+export interface MenuPermission{    
+    permissionId:number;
+    menuId?:number;
+    menuName?:string;
+    moduleId?:number;
+    moduleName?:string;   
+    canCreate:boolean;
+    canEdit:boolean;
+    canDelete:boolean;
+    canView:boolean;
+    userId:number;
+    roleId:number;
+    isActive?:boolean;    
+    isSuccess?:boolean;
+    total?:number;
+}

@@ -2,8 +2,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { Observable, catchError, throwError } from "rxjs";
 import { Store } from "@ngrx/store";
-import { AppState } from "../store/app.state";
-import { autoLogOut } from "../auth/state/auth.actions";
+import { AppState } from "../../store/app.state";
+import { autoLogOut } from "../../auth/state/auth.actions";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -12,7 +12,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
-                debugger
                 this.store.dispatch(autoLogOut());
             }
             const error = err.error.message || err.statusText;

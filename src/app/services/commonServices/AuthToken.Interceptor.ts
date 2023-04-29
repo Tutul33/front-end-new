@@ -2,8 +2,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, exhaustMap, take } from "rxjs";
-import { AppState } from "../store/app.state";
-import { getToken } from "../auth/state/auth.selector";
+import { AppState } from "../../store/app.state";
+import { getToken } from "../../auth/state/auth.selector";
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor{

@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { PostService } from "src/app/services/post.service";
+import { PostService } from "src/app/services/postServices/post.service";
 import { AppState } from "src/app/store/app.state";
 import { addPost, addPostSuccess, deletePost, deletePostSucess, loadPosts, loadPostsSuccess, updatePost, updatePostSuccess } from "./post.actions";
 import { filter, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { Router } from "@angular/router";
 import { ROUTER_NAVIGATION, RouterNavigatedAction } from "@ngrx/router-store";
 import { Update } from "@ngrx/entity";
-import { Post } from "src/app/models/post.model";
+import { Post } from "src/app/models/postModels/post.model";
 @Injectable()
 export class PostsEffects {
     constructor(

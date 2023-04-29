@@ -16,12 +16,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { appReducer } from './store/app.state';
 import { AuthEffects } from './auth/state/auth.effects';
-import { AuthTokenInterceptor } from './services/AuthToken.Interceptor';
+import { AuthTokenInterceptor } from './services/commonServices/AuthToken.Interceptor';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './router/custom-seralizer';
 import { SideNavComponent } from './shared/components/side-nav/side-nav.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { ErrorInterceptor } from './services/Error.Interceptor';
+import { ErrorInterceptor } from './services/commonServices/Error.Interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { ErrorInterceptor } from './services/Error.Interceptor';
     LoadingSpinnerComponent,
     SideNavComponent,
     FooterComponent
+   
   ],
   imports: [
     BrowserModule,

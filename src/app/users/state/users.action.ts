@@ -1,7 +1,6 @@
-import { Update } from "@ngrx/entity";
 import { createAction, props } from "@ngrx/store";
-import { SearchModel } from "src/app/models/search.model";
-import { IUserModel, UserModels } from "src/app/models/user.model";
+import { SearchModel } from "src/app/models/commonModels/search.model";
+import { IUserModel, UserModels } from "src/app/models/userModels/user.model";
 
 export const ADD_USER_ACTION = '[users page] add user';
 export const ADD_USER_SUCCESS = '[users page] add user success';

@@ -1,6 +1,6 @@
 import { Update } from "@ngrx/entity";
 import { createAction, props } from "@ngrx/store";
-import { Post } from "src/app/models/post.model";
+import { Post } from "src/app/models/postModels/post.model";
 
 export const ADD_POST_ACTION = '[posts page] add post';
 export const ADD_POST_SUCCESS = '[posts page] add post success';

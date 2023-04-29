@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { signupStart } from '../state/auth.actions';
 import { setLoadingSpinner } from 'src/app/store/Shared/shared.action';
-import { UserModel } from 'src/app/models/user.model';
+import { UserModel } from 'src/app/models/userModels/user.model';
 
 @Component({
   selector: 'app-signup',
@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit{
        this.signUpFrom.value.email,
        this.signUpFrom.value.phone,
        false,
-       new Date());
+       new Date(),'');
     this.store.dispatch(setLoadingSpinner({status:true}));
     this.store.dispatch(signupStart({user:user }));
   }
