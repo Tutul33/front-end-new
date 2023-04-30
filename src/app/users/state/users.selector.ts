@@ -16,21 +16,7 @@ export const getRoles = createSelector(getUserState, (state)=>{
 export const getUserTotal = createSelector(getUserState, (state)=>{
   return state.total;
 });
-export const getUserAll = createSelector(getUsers,getUserTotal, (users,total)=>{
-  return {users,total};
+export const getUserAll = createSelector(getUsers,getUserTotal, (userList,total)=>{  
+  const sortedUsers= [...userList].sort((a, b) => ((a.customerId as number) > (b.customerId as number) ? -1 : 1));
+  return {users:sortedUsers,total};
 });
-
-// export const getUserById =(id:number)=>(
-//   createSelector(
-//     getUserEntities,
-//     (users) => {
-//       return users ? users[id] : null;
-//     }
-//   ));
-//   export const getUserAll =
-//     createSelector(
-//       getUsers,
-//       (users) => {
-//         return users.sort((a, b) => ((a.customerId as number) > (b.customerId as number) ? -1 : 1));
-//       }
-//     );

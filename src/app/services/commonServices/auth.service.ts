@@ -81,7 +81,8 @@ export class AuthService {
              data.phone,
              data.isSuccess as boolean,
              data.expireDate as Date,
-             data.roleName
+             data.roleName,
+             data.profilePicName
              );
         return user;
     }
@@ -138,7 +139,7 @@ export class AuthService {
 
         if (userDataString) {
             const data = JSON.parse(userDataString);
-            //const expirationDate = new Date(data.expirationDate);
+           debugger
             const user=new UserModel(
                 data.token, 
                 data.loginId, 
@@ -152,7 +153,9 @@ export class AuthService {
                  data.phone,
                  data.isSuccess,
                  data.expireDate,
-                 data.roleName);
+                 data.roleName,
+                 data.profilePicName
+                 );
                  
             this.runTimeOutInterval(user);
             return user;

@@ -16,11 +16,11 @@ export const LOAD_USERS_SUCCESS = '[users page] load user success';
 export const GET_ROLE = '[users state] Load role data';
 export const GET_ROLE_SUCCESS = '[users state] Load role data success';
 
-export const addUser=createAction(ADD_USER_ACTION,props<{user:IUserModel}>());
+export const addUser=createAction(ADD_USER_ACTION,props<{user:IUserModel,uploadedFile:any}>());
 export const addUserSuccess=createAction(ADD_USER_SUCCESS,props<{user:IUserModel}>());
 export const addUserFail=createAction(ADD_USER_FAIL);
 
-export const updateUser=createAction(UPDATE_USER_ACTION,props<{user:IUserModel}>())
+export const updateUser=createAction(UPDATE_USER_ACTION,props<{user:IUserModel,uploadedFile:any}>())
 export const updateUserSuccess=createAction(UPDATE_USER_SUCCESS,props<{user:IUserModel}>())
 
 export const deleteUser=createAction(DELETE_USER_ACTION,props<{id:number}>())

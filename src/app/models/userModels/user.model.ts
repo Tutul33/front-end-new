@@ -28,6 +28,7 @@ export interface IUserModel{
     token?: string;
     loginId?: number;
     customerId?: number;
+    roleId?: number;
     userName?: string;
     password: string;
     firstName: string;
@@ -38,6 +39,7 @@ export interface IUserModel{
     isSuccess?: boolean;
     expireDate?: Date;
     total?:number;
+    profilePicName?:string;
 }
 export class UserModel{
     constructor(
@@ -54,6 +56,7 @@ export class UserModel{
     private isSuccess: boolean,
     private expireDate: Date,
     private roleName: string,
+    private profilePicName?:string
     ) {
 
     }
@@ -74,6 +77,9 @@ export class UserModel{
     }
     get userRoleName() {
         return this.roleName;
+    }
+    get userProfilePicName() {
+        return this.profilePicName;
     }
 
 }

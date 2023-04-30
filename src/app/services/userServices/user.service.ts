@@ -69,14 +69,15 @@ getRoles(): Observable<Role[]> {
             )
         );
 }
-addUser(user: IUserModel): Observable<IUserModel> {
+addUser(postModel:any): Observable<IUserModel> {
+    
     let url=`${environment.API_URL}/api/customer/CreateCustomer`;
-    return this.http.post<IUserModel>(url, user);
+    return this.http.post<IUserModel>(url, postModel);
 }
-updateUser(user: IUserModel) {
+updateUser(postModel:any) {
     let url=`${environment.API_URL}/api/customer/UpdateCustomer`;
     return this.http
-        .put<IUserModel>(url, user);
+        .put<IUserModel>(url, postModel);
 }
 deleteUser(id: number) {
     let url=`${environment.API_URL}/api/customer/DeleteCustomer/${id}`;      

@@ -19,4 +19,5 @@ export interface LoginModel{
     expireDate?: Date;
     modules:Modules[];
     roleName:string;
+    profilePicName:string;
 }

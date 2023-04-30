@@ -19,20 +19,21 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { UserDialogComponent } from "./user-management/add-edit-user/userDialogComponent";
 import { MatSelectModule } from "@angular/material/select";
-const routes:Routes=[
+import { MatToolbarModule } from '@angular/material/toolbar';
+const routes: Routes = [
     {
-    path:'',
-    component:UserManagementComponent,    
+        path: '',
+        component: UserManagementComponent,
     }
 ];
 @NgModule({
-    imports:[
+    imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         RouterModule.forChild(routes),
         EffectsModule.forFeature([UsersEffects]),
-        StoreModule.forFeature(USER_STATE_NAME,userReducer),
+        StoreModule.forFeature(USER_STATE_NAME, userReducer),
 
         //
         MatSlideToggleModule,
@@ -43,12 +44,13 @@ const routes:Routes=[
         MatPaginatorModule,
         MatTableModule,
         MatSortModule,
-        MatSelectModule
+        MatSelectModule,
+        MatToolbarModule
     ],
-    declarations:[
+    declarations: [
         UserManagementComponent,
         UserDialogComponent
     ]
 })
-export class UserModule{
+export class UserModule {
 }

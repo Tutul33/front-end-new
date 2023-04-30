@@ -23,10 +23,9 @@ import { UserSearchModel } from 'src/app/models/userModels/userSearch.model';
   providers: [PagerService]
 })
 export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone','actions'];
+  displayedColumns: string[] = ['firstName', 'lastName','roleName', 'email', 'phone','actions'];
   dataSource: any = [];
   userList?: IUserModel[];
-  //@ViewChild(MatPaginator) paginator: MatPaginator | any;
   userSubscription: Subscription | any;
   moduleSubscription: Subscription|any;
   roleList!:Observable<Role[]>;
@@ -42,9 +41,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   };
   
   authourizedData!: Observable<currentModulePath>;
-  //Dialog
-  // exitAnimationDuration: string="500ms"; 
-  // enterAnimationDuration: string="500ms";
+
   //Search
   roleId:number=0;
   searchStr:string='';
@@ -68,7 +65,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
     this.moduleSubscription.unsubscribe();
   }
   ngAfterViewInit(): void {
-    //this.dataSource.paginator = this.paginator;
   }
   
   ngOnInit(): void {   
@@ -99,7 +95,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    //this.dataSource.filter = filterValue.trim().toLowerCase();
     if (filterValue!='') {
       this.searchStr=filterValue.trim().toLowerCase();
       this.isPaging=true;
@@ -171,7 +166,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   }
   openDialog(customer:IUserModel): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
-      width: '500px',
+      width: '800px',
       data: customer,
       panelClass: 'user-dialog',
       exitAnimationDuration:environment.exitAnimationDuration,

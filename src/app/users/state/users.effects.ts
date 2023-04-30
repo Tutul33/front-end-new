@@ -16,11 +16,13 @@ import { Update } from "@ngrx/entity";
 import { IUserModel, UserModel } from "src/app/models/userModels/user.model";
 import { setErrorMessage, setLoadingSpinner } from "src/app/store/Shared/shared.action";
 import { MessageService } from "src/app/services/commonServices/toastr.service";
+import { CommonService } from "src/app/services/commonServices/common.service";
 @Injectable()
 export class UsersEffects {
     constructor(
         private action$: Actions,
         private userService: UserService,
+        private _cmnService:CommonService,
         private store: Store<AppState>,
         private route: Router,
         private messageService:MessageService) {
@@ -50,7 +52,8 @@ export class UsersEffects {
         return this.action$.pipe(
             ofType(addUser),           
             exhaustMap((action) => {
-                return this.userService.addUser(action.user).pipe(
+                var postModel=this._cmnService.FormData(action.user,action.uploadedFile);
+                return this.userService.addUser(postModel).pipe(
                     map((data) => {
                         this.store.dispatch(setLoadingSpinner({ status: false }))
                         this.store.dispatch(setErrorMessage({ message: '' }))
@@ -79,23 +82,17 @@ export class UsersEffects {
         return this.action$.pipe(
             ofType(updateUser),
             switchMap((action) => {
-                return this.userService.updateUser(action.user)
+                var postModel=this._cmnService.FormData(action.user,action.uploadedFile);
+                return this.userService.updateUser(postModel)
                 .pipe(
                     map((data) => 
                     {
                         this.store.dispatch(setLoadingSpinner({status:false}));
                         if (data.isSuccess) {
-                            this.messageService.showSuccessMessage('User is created successfully.');
+                            this.messageService.showSuccessMessage('User is updated successfully.');
                         } else {
                             this.messageService.showErrorMessage('User update is failed.');  
                         }
-                        // const updatedUser: Update<IUserModel> = 
-                        // {
-                        //     id: action.user.customerId as number,
-                        //     changes: {
-                        //         ...action.user
-                        //     }
-                        // }
                         return updateUserSuccess({ user: action.user });
                    }),
                    catchError((errorRes) => {
