@@ -6,6 +6,8 @@ import { Observable, map } from "rxjs";
 import { IUserModel, UserModels } from "../../models/userModels/user.model";
 import { environment } from "src/environments/environment";
 import { SearchModel } from "../../models/commonModels/search.model";
+import { Role } from "src/app/models/commonModels/role.model";
+import { UserSearchModel } from "src/app/models/userModels/userSearch.model";
 
 @Injectable({
     providedIn:'root'
@@ -13,7 +15,7 @@ import { SearchModel } from "../../models/commonModels/search.model";
 export class UserService{
  constructor(private store:Store<AppState>,private http:HttpClient){
  }   
- getUsers(search:SearchModel): Observable<UserModels> {
+ getUsers(search:UserSearchModel): Observable<UserModels> {
     let filter='';
     let url=`${environment.API_URL}/api/customer/GetCustomerList`;
     if(search.pageNumber!=undefined || search.pageNumber!=null){
@@ -24,6 +26,9 @@ export class UserService{
     }
     if (search.searching) {
         filter+='&search='+search.searching;
+    }
+    if (search.roleId>0) {
+        filter+='&roleId='+search.roleId;
     }
     if (filter!='') {
         url=url+'?'+filter;
@@ -42,6 +47,24 @@ export class UserService{
                     total: data.total
                 }
                 return userModel;
+            }
+            )
+        );
+}
+getRoles(): Observable<Role[]> {
+    let filter='';
+    let url=`${environment.API_URL}/api/customer/GetRoleList`;
+   
+    return this.http
+        .get(url)
+        .pipe(
+            map((data: any) => {
+                const roles: Role[] = [];
+                for (let key in data.list) {
+                    roles.push({ ...data.list[key], id: key });
+                }
+                
+                return roles;
             }
             )
         );

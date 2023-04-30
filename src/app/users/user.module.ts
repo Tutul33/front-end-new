@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { UserDialogComponent } from "./user-management/add-edit-user/userDialogComponent";
+import { MatSelectModule } from "@angular/material/select";
 const routes:Routes=[
     {
     path:'',
@@ -41,7 +42,8 @@ const routes:Routes=[
         MatDialogModule,
         MatPaginatorModule,
         MatTableModule,
-        MatSortModule
+        MatSortModule,
+        MatSelectModule
     ],
     declarations:[
         UserManagementComponent,

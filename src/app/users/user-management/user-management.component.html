@@ -12,6 +12,16 @@
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Search User" #input>
     </mat-form-field>
+    <mat-form-field class="ms-1" appearance="fill">
+      <mat-label>Roles</mat-label>
+      <mat-select [(ngModel)]="roleId" (ngModelChange)="onChangeRole()">
+        <mat-option [value]="0">All</mat-option>
+        <mat-option *ngFor="let role of roleList|async" [value]="role.roleId">
+          {{role.roleName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="firstName">

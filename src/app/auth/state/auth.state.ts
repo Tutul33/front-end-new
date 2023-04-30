@@ -10,7 +10,7 @@ export interface AuthState {
     isSent: boolean;
     userPass: changePass | null;
     modules: Modules[] | any;
-    currentModulePath:currentModulePath|any
+    currentModulePath:currentModulePath|any;
 }
 export const initialState: AuthState = {
     user: null,

@@ -23,32 +23,7 @@ export const getUserInfo=createSelector(getAuthState,(state)=>{
 export const getAthourizedModules=createSelector(getAuthState,(state)=>{
     return state.modules;
 });
-// export const getCurrentModuleId=createSelector(getAuthState,(state)=>{
-//     return state.currentModuleId;
-// });
-// export const getCurrentModulePath=createSelector(getAuthState,(state)=>{
-//     return state.currentModulePath;
-// });
-// export const getCurrentMenuId=createSelector(getAuthState,(state)=>{
-//     return state.currentMenuId;
-// });
-// export const getCurrentMenuPath=createSelector(getAuthState,(state)=>{
-//     return state.currentMenuPath;
-// });
-// export const getCanCreate=createSelector(getAuthState,(state)=>{
-//     return state.canCreate;
-// });
-// export const getCanView=createSelector(getAuthState,(state)=>{
-//     return state.canView;
-// });
-// export const getCanDelete=createSelector(getAuthState,(state)=>{
-//     return state.canDelete;
-// });
-// export const getCanEdit=createSelector(getAuthState,(state)=>{
-//     return state.canEdit;
-// });
 export const getAthourizedActions=createSelector(
     getAuthState,(state)=>{
-        debugger
     return state.currentModulePath;
 });

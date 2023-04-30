@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 //import { initialState, userAdapter } from "./users.state";
 import { initialState } from "./users.state";
-import { addUser, addUserSuccess, deleteUserSuccess, loadUsersSuccess, updateUserSuccess } from "./users.action";
+import { addUser, addUserSuccess, deleteUserSuccess, loadRoles, loadRolesSuccess, loadUsersSuccess, updateUserSuccess } from "./users.action";
 
 const _usersReducer = createReducer(initialState,
     on(addUserSuccess,(state,action)=>{
@@ -41,6 +41,13 @@ const _usersReducer = createReducer(initialState,
             ...state,
             users: action.users.userList,
             total:action.users.total
+        }
+        //return userAdapter.setAll(action.users,state);
+    }),
+    on(loadRolesSuccess, (state, action) => {        
+        return {
+            ...state,
+            roles: action.roles
         }
         //return userAdapter.setAll(action.users,state);
     })

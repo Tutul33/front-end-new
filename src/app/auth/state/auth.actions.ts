@@ -3,6 +3,7 @@ import { changePass } from "src/app/models/authModels/changePass.model";
 import { Modules } from "../../models/moudleNodels/modules.model";
 import { User, UserModel } from "src/app/models/userModels/user.model";
 import { currentModulePath } from "src/app/models/commonModels/currentModulePath";
+import { Role } from "src/app/models/commonModels/role.model";
 export const LOGIN_START = '[Auth page] login start';
 export const LOGIN_SUCCESS = '[Auth page] login success';
 export const LOGIN_FAIL = '[Auth page] login fail';
@@ -61,5 +62,6 @@ export const setCurrentModuleMenuData = createAction(SET_MODULE_MENU_DATA,
     props<{currentModulePath:currentModulePath}>());
 export const setCurrentModuleMenuDataSuccess = createAction(SET_MODULE_MENU_DATA_SUCCESS,
         props<{currentModulePath:currentModulePath}>());
-    
+
+
 
