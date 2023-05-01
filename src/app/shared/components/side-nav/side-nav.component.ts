@@ -16,30 +16,20 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit, OnDestroy {
-  user!: Observable<UserModel>;
+  
   modules!: Observable<Modules[]>;
   moduleSubscription: Subscription | any;
-  userInfoSubscription: Subscription | any;
   userData: UserModel;
   constructor(private store: Store<AppState>) {
 
   }
   ngOnDestroy(): void {
     this.moduleSubscription.unsubscribe();
-    this.userInfoSubscription.unsubscribe();
+    
   }
   moduleList: Modules[] = [];
   profilePicUrl: string = "";
-  ngOnInit(): void {
-    this.user = this.store.select(getUserInfo);
-    this.userInfoSubscription = this.store.select(getUserInfo).subscribe((data) => {
-      if (data.profilePicName != '') {
-        this.profilePicUrl = this.getProfilePicture(data.profilePicName);
-        var propic = (<HTMLImageElement>document.getElementById("profilePicID"));
-        if (propic)
-          propic.src = this.profilePicUrl;
-      }
-    })
+  ngOnInit(): void {    
     this.modules = this.store.select(getAthourizedModules);
     this.moduleSubscription = this.store.select(getAthourizedModules).subscribe((data) => {
       this.moduleList = data;
@@ -76,10 +66,5 @@ export class SideNavComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this.store.dispatch(autoLogOut());
   }
-  getProfilePicture(fileName?: string) {
-    if (fileName != undefined) {
-      return environment.API_URL + "/api/customer/ProfilePic/" + fileName;
-    }
-    return '';
-  }
+  
 }

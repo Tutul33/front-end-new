@@ -27,10 +27,7 @@
     border-bottom-color: dimgray;
     border-bottom-width: 1px;
 }
-.profile-pic{
-    height: 60px !important;
-    width: 60px !important;
-}
+
 .cdk-overlay-container {
     position: fixed;
     z-index: 1040 !important;

@@ -120,7 +120,6 @@ export class AuthService {
     }
     runTimeOutInterval(user: UserModel) {
         const todaysDate = new Date().getTime();
-        //const expirationDate = user.expireDate.getDate();
         const timeInterval = new Date(user.expireDateData).getDate() - todaysDate;
         this.timeOutInterval = setTimeout(() => {
             this.store.dispatch(autoLogOut());
@@ -139,7 +138,6 @@ export class AuthService {
 
         if (userDataString) {
             const data = JSON.parse(userDataString);
-           debugger
             const user=new UserModel(
                 data.token, 
                 data.loginId, 

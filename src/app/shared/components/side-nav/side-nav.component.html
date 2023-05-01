@@ -1,49 +1,7 @@
-<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-    <div class="sb-sidenav-header">
-        <div class="d-flex justify-content-center">
-            <div class="flex-shrink-0 pt-1">
-                <img  id="profilePicID"  class="img-fluid rounded me-1 profile-pic"
-                    alt="Profile Pic">
-            </div>
-            <span>
-                <ul class="dropdown pt-1">
-                    <a class="dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
-                      <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                      <li><hr class="dropdown-divider" /></li> -->
-                        <a class="dropdown-item" href="javascript:void(0)" (click)="onLogOut($event)">Log out</a>
-                    </ul>
-                </ul>
-                <div class="d-block" *ngIf="user | async as user">
-                    <div class="text-info d-block">{{user.userFullName}}</div>
-                    <div class="text-warning d-block">{{user.userRoleName}}</div>
-                </div>
-            </span>
-        </div>
-    </div>
+<nav class="sb-sidenav accordion sb-sidenav-dark sideNav-bg"  id="sidenavAccordion">
+    
     <div class="sb-sidenav-menu">
         <div class="nav">
-            <!-- <div class="sb-sidenav-menu-heading">Core</div> -->
-            <!-- <div class="p-0" *ngFor="let item of menu;let i=index ">
-                <a class="nav-link" routerLink="{{item.menuPath}}" *ngIf="!item.hasChild">
-                    <div class="sb-nav-link-icon"><i class="{{item.menuIcon}}"></i></div>
-                    {{item.menuName}}
-                </a>
-                <a class="nav-link collapsed" routerLink="{{item.menuPath}}" *ngIf="item.hasChild" data-bs-toggle="collapse"
-                    data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    {{item.menuName}}
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="pagesCollapseAuth" *ngIf="item.hasChild" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordionPages">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" routerLink="{{itemChild.menuPath}}" *ngFor="let itemChild of item.childMenu;let ic=index "><i class="fa fa-bars"></i>&nbsp;{{itemChild.menuName}}</a>
-                    </nav>
-                </div>
-            </div> -->
             <div *ngFor="let module of (modules| async);let im=index ">
                 <div class="p-0" *ngFor="let item of module.menus;let imn=index">
                     <a class="nav-link" routerLink="{{item.menuPath}}" (click)="onModuleClick($event,module,item)" *ngIf="item.menuList.length==0" >

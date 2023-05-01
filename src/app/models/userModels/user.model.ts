@@ -66,7 +66,7 @@ export class UserModel{
     get userToken() {
         return this.token;
     }
-    get userfirstName() {
+    get userFirstName() {
         return this.firstName;
     }
     get userLastName() {
