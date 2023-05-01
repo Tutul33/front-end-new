@@ -16,17 +16,17 @@
           </div>
           <div class="col-md-7">
             <span *ngIf="user|async as userInfo">
-              <span><b class="font-13">{{userInfo.userFullName}}</b></span><br/>
+              <span><b class="font-13">{{userInfo.userFullName}}</b></span><br />
               <span class="font-10">{{userInfo.userRoleName}}</span>
             </span>
           </div>
-          <div class="col-md-1">            
+          <div class="col-md-1">
             <div class="height-100">
               <ul class="navbar-nav me-5">
                 <li class="nav-item dropdown">
-                  <a  id="navbarDropdown" data-bs-toggle="dropdown" class="arrow-down m-l-5" role="button" href="#" 
-                    aria-expanded="false"><i class="fa fa-angle-down arrow-down-margin"></i>                    
-                   </a>
+                  <a id="navbarDropdown" data-bs-toggle="dropdown" class="arrow-down m-l-5" role="button" href="#"
+                    aria-expanded="false"><i class="fa fa-angle-down arrow-down-margin"></i>
+                  </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="javascript:void(0)" (click)="onLogOut($event)">Log out</a>
                   </ul>
@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </nav>
