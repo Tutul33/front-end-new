@@ -1,26 +1,88 @@
-<h1 mat-dialog-title>Module {{title}}</h1>
+<h1 mat-dialog-title>Menu {{title}}</h1>
 <div mat-dialog-content class="">
-    <form [formGroup]="menuForm" class="border border-dark rounded form-bg-color" #f="ngForm">
-       <div class="m-5">
+    <form [formGroup]="menuForm" class="border rounded form-bg-color" #f="ngForm">
+        <div class="m-5">
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Module</span></div>
+                <div class="col-md-6">
+                    <select formControlName="moduleId" class="form-select" aria-label="Default select" >
+                        <option>Select</option>
+                        <option *ngFor="let md of moduleList" [value]="md.moduleId">
+                            {{md.moduleName}}
+                        </option>
+                    </select>
+                    <div class="text-warning">{{showModuleValidtionError()}}</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Name</span></div>
+                <div class="col-md-6">
+                    <input matInput type="text" class="form-control" formControlName="menuName">
+                    <div class="text-warning">{{showMenuNameValidtionError()}}</div> 
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Path</span></div>
+                <div class="col-md-6">
+                    <input matInput type="text" class="form-control" formControlName="menuPath">
+                   <!-- <div class="text-warning">{{showModulePathValidtionError()}}</div>  -->
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Icon</span></div>
+                <div class="col-md-6">
+                    <input matInput type="text" class="form-control" formControlName="menuIcon">
+                    <!-- <div class="text-warning">{{showModuleIconValidtionError()}}</div>  -->
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Color</span></div>
+                <div class="col-md-6">
+                    <input matInput type="text" class="form-control" formControlName="menuColor">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Sequence</span></div>
+                <div class="col-md-6">
+                    <input matInput type="text" class="form-control" formControlName="menuSequence">
+                     <!-- <div class="text-warning">{{showModuleSequenceValidtionError()}}</div> -->
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Description</span></div>
+                <div class="col-md-6">
+                    <textarea matInput class="form-control" formControlName="description"></textarea>
+                </div>
+            </div>
+           </div>
+    </form>
+</div>
+<div mat-dialog-actions>       
+            <button mat-button class="float-end"  (click)="onNoClick()">Cancel</button>
+            <button mat-raised-button [mat-dialog-close]="data" class="float-end" color="primary" id="btnCreateModule" [disabled]="!f.valid"
+        (click)="onMenuSubmit()"><i class="fa fa-save"></i>Save</button>         
+</div>
+<!--
+     <div class="m-5">
         <div class="row mb-3">
             <div class="col-md-6"><span class="text-center">Name</span></div>
             <div class="col-md-6">
                 <input matInput type="text" class="form-control" formControlName="moduleName">
-                <!-- <div class="text-warning">{{showModuleNameValidtionError()}}</div> -->
+                <div class="text-warning">{{showModuleNameValidtionError()}}</div> 
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-6"><span class="text-center">Path</span></div>
             <div class="col-md-6">
                 <input matInput type="text" class="form-control" formControlName="modulePath">
-                <!-- <div class="text-warning">{{showModulePathValidtionError()}}</div> -->
+               <div class="text-warning">{{showModulePathValidtionError()}}</div> 
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-6"><span class="text-center">Icon</span></div>
             <div class="col-md-6">
                 <input matInput type="text" class="form-control" formControlName="moduleIcon">
-                <!-- <div class="text-warning">{{showModuleIconValidtionError()}}</div> -->
+                <div class="text-warning">{{showModuleIconValidtionError()}}</div> 
             </div>
         </div>
         <div class="row mb-3">
@@ -33,7 +95,7 @@
             <div class="col-md-6"><span class="text-center">Sequence</span></div>
             <div class="col-md-6">
                 <input matInput type="text" class="form-control" formControlName="moduleSequence">
-                <!-- <div class="text-warning">{{showModuleSequenceValidtionError()}}</div> -->
+                 <div class="text-warning">{{showModuleSequenceValidtionError()}}</div>
             </div>
         </div>
         <div class="row mb-3">
@@ -43,10 +105,4 @@
             </div>
         </div>
        </div>
-    </form>
-</div>
-<div mat-dialog-actions>       
-            <button mat-button class="float-end"  (click)="onNoClick()">Cancel</button>
-            <button mat-raised-button [mat-dialog-close]="data" class="float-end" color="primary" id="btnCreateModule" [disabled]="!f.valid"
-        (click)="onMenuSubmit()"><i class="fa fa-save"></i>Save</button>         
-</div>
+-->

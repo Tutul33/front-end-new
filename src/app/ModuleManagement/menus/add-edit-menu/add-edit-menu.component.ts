@@ -5,8 +5,11 @@ import { Store } from '@ngrx/store';
 import { Menu } from 'src/app/models/menuModels/menu.model';
 import { CommonService } from 'src/app/services/commonServices/common.service';
 import { AppState } from 'src/app/store/app.state';
-import { addMenu, updateMenu } from '../../state/module.actions';
+import { addMenu, loadModule, updateMenu } from '../../state/module.actions';
 import { setLoadingSpinner } from 'src/app/store/Shared/shared.action';
+import { Observable } from 'rxjs';
+import { Modules } from 'src/app/models/moudleNodels/modules.model';
+import { getModulesAll } from '../../state/module.selector';
 
 @Component({
   selector: 'app-add-edit-menu',
@@ -16,6 +19,7 @@ import { setLoadingSpinner } from 'src/app/store/Shared/shared.action';
 export class AddEditMenuComponent implements OnInit {
   title:string="";
   menuForm:FormGroup |any;
+  moduleList:Modules[];
   constructor(public dialogRef: MatDialogRef<AddEditMenuComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Menu,
     private store:Store<AppState>,
@@ -39,6 +43,9 @@ export class AddEditMenuComponent implements OnInit {
       menuSequence: this.data.menuSequence
     });
    } 
+   this.store.select(getModulesAll).subscribe((data)=>{
+        this.moduleList=data.modules;
+   });
   }
   createMenu(){
     this.menuForm=new FormGroup({
@@ -81,5 +88,25 @@ export class AddEditMenuComponent implements OnInit {
    } else {
     this.store.dispatch(addMenu({menu}));
    }
+  }
+  showMenuNameValidtionError(){
+    const modulePathForm=this.menuForm.get('menuName');
+        if (modulePathForm.touched && !modulePathForm.valid) {
+          if (modulePathForm.errors.required)
+           {
+            return 'Name is required.';
+          }                    
+        }
+        return '';
+  }
+  showModuleValidtionError(){
+    const modulePathForm=this.menuForm.get('moduleId');
+    if (modulePathForm.touched && !modulePathForm.valid) {
+      if (modulePathForm.errors.required)
+       {
+        return 'Module is required.';
+      }                    
+    }
+    return '';
   }
 }

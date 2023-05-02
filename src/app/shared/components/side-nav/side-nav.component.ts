@@ -32,7 +32,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   ngOnInit(): void {    
     this.modules = this.store.select(getAthourizedModules);
     this.moduleSubscription = this.store.select(getAthourizedModules).subscribe((data) => {
-      this.moduleList = data;
+      this.moduleList = data;      
     });
   }
   onModuleClick(event: Event, module: Modules, menu: Menu) {

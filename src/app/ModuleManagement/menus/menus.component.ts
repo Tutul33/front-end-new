@@ -7,7 +7,7 @@ import { Menu } from 'src/app/models/menuModels/menu.model';
 import { Modules } from 'src/app/models/moudleNodels/modules.model';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
 import { AppState } from 'src/app/store/app.state';
-import { deleteMenu, loadMenu } from '../state/module.actions';
+import { deleteMenu, loadMenu, loadModule } from '../state/module.actions';
 import { getMenusAll, getModulesAll } from '../state/module.selector';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddEditMenuComponent } from './add-edit-menu/add-edit-menu.component';
@@ -23,7 +23,10 @@ export class MenusComponent implements OnInit,OnDestroy{
   displayedColumns: string[] = ['menuName', 'moduleName', 'menuIcon', 'menuPath','menuSequence','actions'];
   dataSource: any = [];
   menuSubscription?:Subscription;
+  moduleSubscription?:Subscription;
   menuList: Menu[]=[];
+  moduleList: Modules[]=[];
+  moduleId:number=0;
   //Pagination
   public pageNumber: number = 0;
   public pageSize: number = 5;
@@ -52,9 +55,23 @@ export class MenusComponent implements OnInit,OnDestroy{
     }
   }
   ngOnDestroy(): void {
+    this.moduleSubscription?.unsubscribe();
   }
   ngOnInit(): void {
     this.loadMenus(0);
+    this.LoadModule();
+  }
+  LoadModule(){
+    const searchModel: SearchModel = {
+      searching: '',
+      pageNumber: 0,
+      pageSize: 0
+    }
+    this.store.dispatch(loadModule({search:searchModel}));
+    this.moduleSubscription=this.store.select(getModulesAll).subscribe((data)=>{
+      this.moduleList=data.modules;
+      console.log(data);
+    });
   }
   clearAll(){
     this.searchStr='';
