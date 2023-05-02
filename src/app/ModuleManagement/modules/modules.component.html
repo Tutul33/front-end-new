@@ -1,89 +1,102 @@
 <div class="row">
-    <div class="col-md-12">
-      <button mat-raised-button color="primary" (click)="addNewModule()">Add New</button>
-      <hr>
-      <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Search Module" #input>
-      </mat-form-field>
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
-          <ng-container matColumnDef="moduleName">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.moduleName}} </td>
-          </ng-container>
-          <ng-container matColumnDef="modulePath">
-            <th mat-header-cell *matHeaderCellDef>  Path </th>
-            <td mat-cell *matCellDef="let element"> {{element.modulePath}} </td>
-          </ng-container>
-          <ng-container matColumnDef="moduleIcon">
-            <th mat-header-cell *matHeaderCellDef> Icon </th>
-            <td mat-cell *matCellDef="let element"> {{element.moduleIcon}} </td>
-          </ng-container>
-          <ng-container matColumnDef="moduleColor">
-            <th mat-header-cell *matHeaderCellDef> Color </th>
-            <td mat-cell *matCellDef="let element"> {{element.moduleColor}} </td>
-          </ng-container>
-          <ng-container matColumnDef="moduleSequence">
-            <th mat-header-cell *matHeaderCellDef> Sequence </th>
-            <td mat-cell *matCellDef="let element"> {{element.moduleSequence}} </td>
-          </ng-container>
-          <ng-container matColumnDef="descrioption">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
-            <td mat-cell *matCellDef="let element"> {{element.descrioption}} </td>
-          </ng-container>
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let element">
-              <a class="text-warning cursor-pointer" (click)="EditModule($event,element)"><i class="fa fa-edit"></i></a>
-              <a class="text-danger cursor-pointer p-2" (click)="DeleteModule($event,element)"><i class="fa fa-trash"></i></a>
-            </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>      
+  <div class="col-md-12"><h2>Module Management</h2></div>
+  <div class="col-md-12 mb-3">   
+    <div class="row">
+      <div class="col-md-3">
+        <div class="d-flex div-inputs">
+          <i class="fa fa-search search-icon-position"></i>
+          <input class="input-search" (keyup)="applyFilter($event)"  type="text" placeholder=" ModuleName">      
+        </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12 p-3" *ngIf="pageSize<totalRows" >
-          <div class="float-start">
-            <span class="btn btn-sm btn-outline-secondary">
-              Showing <span class="text-success"><b>{{pageStart}}</b></span>
-              to <span class="text-success"><b>{{pageEnd}}</b></span>
-              of <span class="text-success"><b>{{totalRows}}</b></span>
-              entries
-            </span>
-          </div>
-          <div class="float-start ms-4">
-            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-              <li>
-                <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary ms-1"
-                  [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(1,true)"><i
-                    class="fa fa-angle-double-left" aria-hidden="true"></i>Start</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="btn btn-sm btn-outline-info ms-1"
-                  [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(pager.currentPage - 1,true)"><i
-                    class="fa fa-angle-left" aria-hidden="true"></i>Prev</a>
-              </li>
-              <li *ngFor="let page of pager.pages">
-                <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary ms-1"
-                  [ngClass]="{active:pager.currentPage === page}" (click)="setPaging(page,true)">{{page}}</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="btn btn-sm btn-outline-info ms-1"
-                  [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
-                  (click)="setPaging(pager.currentPage + 1,true)"><i class="fa fa-angle-right"
-                    aria-hidden="true"></i>Next</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary ms-1"
-                  [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
-                  (click)="setPaging(pager.totalPages,true)"><i class="fa fa-angle-double-right"
-                    aria-hidden="true"></i>End</a>
-              </li>
-            </ul>
-          </div>
+      <!-- <div class="col-md-3">
+        <div class="d-flex div-inputs">
+          <i class="fa fa-search search-icon-position"></i>
+          <input class="input-search" type="text" placeholder=" Path">      
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="d-flex div-inputs">
+          <i class="fa fa-search search-icon-position"></i>
+          <input class="input-search" type="text" placeholder=" Icon">      
+        </div>
+      </div> -->
+      <div class="col-md-9">
+        <button class="btn btn-sm btn-outline-secondary float-end" (click)="addNewModule()">Search</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mb-3">
+    <button class="btn btn-sm btn-secondary btn-bg-color float-end" (click)="addNewModule()">Add New</button>
+  </div>
+  <div class="col-md-12"> 
+    <div class="table-responsive rounded mat-elevation-z8">
+     <table class="table table-bordered table-striped ">
+      <thead class="thead-bg-color">
+        <tr>
+          <td>Name</td>
+          <td>Path</td>
+          <td>Icon</td>
+          <td>Color</td>
+          <td>Description</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of moduleList;let i=index">
+          <td>{{item.moduleName}}</td>
+          <td>{{item.modulePath}}</td>
+          <td>{{item.moduleIcon}}</td>
+          <td>{{item.moduleColor}}</td>
+          <td>{{item.description}}</td>
+          <td>
+            <a class="text-secondary cursor-pointer" (click)="EditModule($event,item)"><i class="fa fa-edit"></i></a>
+            <a class="text-secondary cursor-pointer p-2" (click)="DeleteModule($event,item)"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+     </table>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 p-3" *ngIf="pageSize<totalRows">
+        <div class="float-start">
+          <span class="btn btn-sm btn-outline-secondary">
+            Showing <span class="text-success"><b>{{pageStart}}</b></span>
+            to <span class="text-success"><b>{{pageEnd}}</b></span>
+            out of <span class="text-success"><b>{{totalRows}}</b></span>
+          </span>
+        </div>
+        <div class="float-start">
+          <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li>
+              <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary ms-1"
+                [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(1,true)"><i
+                  class="fa fa-angle-double-left" aria-hidden="true"></i>Start</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);" class="btn btn-sm btn-bg-color btn-secondary ms-1 text-color-white"
+                [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPaging(pager.currentPage - 1,true)"><i
+                  class="fa fa-angle-left text-color-white" aria-hidden="true"></i>Prev</a>
+            </li>
+            <li *ngFor="let page of pager.pages">
+              <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary ms-1"
+                [ngClass]="{active:pager.currentPage === page}" (click)="setPaging(page,true)">{{page}}</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);" class="btn btn-sm btn-bg-color btn-secondary ms-1 text-color-white"
+                [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
+                (click)="setPaging(pager.currentPage + 1,true)"><i class="fa fa-angle-right text-color-white"
+                  aria-hidden="true"></i>Next</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary ms-1"
+                [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
+                (click)="setPaging(pager.totalPages,true)"><i class="fa fa-angle-double-right"
+                  aria-hidden="true"></i>End</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+</div>

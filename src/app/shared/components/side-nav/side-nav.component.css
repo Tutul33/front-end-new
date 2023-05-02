@@ -1,3 +1,6 @@
 .sideNav-bg{
-    background-color: #05145f !important;
+    background-color: #00335E !important;
+}
+.sb-sidenav-dark .sb-sidenav-menu .nav-link{
+    color:#fff !important;
 }

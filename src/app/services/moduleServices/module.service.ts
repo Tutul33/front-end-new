@@ -53,12 +53,12 @@ export class moduleService{
         return this.http.post<Modules>(url, user);
     }
     updateModule(user: Modules) {
-        let url=`${environment.API_URL}/api/customer/UpdateCustomer`;
+        let url=`${environment.API_URL}/api/module/UpdateModule`;
         return this.http
             .put<Modules>(url, user);
     }
     deleteModule(id: number):Observable<Modules> {
-        let url=`${environment.API_URL}/api/module/DeleteCustomer/${id}`;      
+        let url=`${environment.API_URL}/api/module/DeleteModule/${id}`;      
         return this.http.delete<Modules>(url);
     }
     getModuleById(id: number):Observable<Modules> {

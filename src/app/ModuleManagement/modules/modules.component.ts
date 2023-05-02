@@ -7,8 +7,10 @@ import { SearchModel } from 'src/app/models/commonModels/search.model';
 import { Modules } from 'src/app/models/moudleNodels/modules.model';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
 import { AppState } from 'src/app/store/app.state';
-import { loadMenu, loadModule } from '../state/module.actions';
+import { deleteModule, loadMenu, loadModule } from '../state/module.actions';
 import { getModulesAll } from '../state/module.selector';
+import { AddEditModuleComponent } from './add-edit-module/add-edit-module.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-modules',
@@ -59,13 +61,43 @@ export class ModulesComponent implements OnInit,OnDestroy{
     this.searchStr='';
   }
   addNewModule(){
-
+    const module: Modules = {
+      moduleId: 0,
+      moduleName: '',
+      description: '',
+      moduleIcon: '',
+      moduleColor: '',
+      modulePath: '',
+      moduleSequence: 0
+    }
+   this.openDialog(module);
   }
   EditModule(event:Event,module:Modules){
+    this.openDialog(module);
+  }
+  openDialog(module:Modules): void {
+    const dialogRef = this.dialog.open(AddEditModuleComponent, {
+      width: '700px',
+      data: module,
+      exitAnimationDuration:environment.exitAnimationDuration,
+      enterAnimationDuration:environment.enterAnimationDuration
+    });
 
+    dialogRef.afterClosed().subscribe(result => {      
+      this.isPaging=true;
+      if(module.moduleId as number>0){
+        this.loadModules(this.pageNumber);      
+      }else{
+        this.loadModules(0);      
+      }      
+    });
   }
   DeleteModule(event:Event,module:Modules){
-    
+    if (confirm("Are you sure to delete this record?")) {
+      this.store.dispatch(deleteModule({id:module.moduleId as number}));
+      this.isPaging=true;
+      this.loadModules(0);     
+     }
   }
   loadModules(pageIndex: number) {
     this.pageNumber=pageIndex;
@@ -78,7 +110,7 @@ export class ModulesComponent implements OnInit,OnDestroy{
     this.modulesSubscription = this.store.select(getModulesAll).subscribe((data) => {
       if (data) {
         this.moduleList = data.modules;
-        this.dataSource = new MatTableDataSource<Modules>(this.moduleList);
+        //this.dataSource = new MatTableDataSource<Modules>(this.moduleList);
         this.totalRows = data.total;
         //paging info start   
         this.totalRowsInList = this.moduleList.length;

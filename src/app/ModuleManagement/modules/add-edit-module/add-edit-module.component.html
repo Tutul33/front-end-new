@@ -1,0 +1,98 @@
+<h1 mat-dialog-title>Module {{title}}</h1>
+<div mat-dialog-content class="">
+    <form [formGroup]="moduleForm" class="border border-dark rounded form-bg-color" #f="ngForm">
+       <div class="m-5">
+        <div class="row mb-3">
+            <div class="col-md-6"><span class="text-center">Name</span></div>
+            <div class="col-md-6">
+                <input matInput type="text" class="form-control" formControlName="moduleName">
+                <div class="text-warning">{{showModuleNameValidtionError()}}</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6"><span class="text-center">Path</span></div>
+            <div class="col-md-6">
+                <input matInput type="text" class="form-control" formControlName="modulePath">
+                <div class="text-warning">{{showModulePathValidtionError()}}</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6"><span class="text-center">Icon</span></div>
+            <div class="col-md-6">
+                <input matInput type="text" class="form-control" formControlName="moduleIcon">
+                <div class="text-warning">{{showModuleIconValidtionError()}}</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6"><span class="text-center">Color</span></div>
+            <div class="col-md-6">
+                <input matInput type="text" class="form-control" formControlName="moduleColor">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6"><span class="text-center">Sequence</span></div>
+            <div class="col-md-6">
+                <input matInput type="text" class="form-control" formControlName="moduleSequence">
+                <div class="text-warning">{{showModuleSequenceValidtionError()}}</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6"><span class="text-center">Description</span></div>
+            <div class="col-md-6">
+                <textarea matInput class="form-control" formControlName="description"></textarea>
+            </div>
+        </div>
+       </div>
+    </form>
+</div>
+<div mat-dialog-actions>       
+            <button mat-button class="float-end"  (click)="onNoClick()">Cancel</button>
+            <button mat-raised-button [mat-dialog-close]="data" class="float-end" color="primary" id="btnCreateModule" [disabled]="!f.valid"
+        (click)="onModuleSubmit()"><i class="fa fa-save"></i>Save</button>         
+</div>
+
+<!-- <div class="col-md-6">                
+                <div class="mb-3">
+                    <mat-form-field class="userform-full-width" appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="moduleName">
+                        <div class="text-warning">{{showModuleNameValidtionError()}}</div>
+                    </mat-form-field>
+
+                </div>
+                <div class="mb-3">
+                    <mat-form-field class="userform-full-width" appearance="fill">
+                        <mat-label>Path</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="modulePath">
+                        <div class="text-warning">{{showModulePathValidtionError()}}</div>
+                    </mat-form-field>
+                </div>   
+                <div class="mb-3">
+                    <mat-form-field class="userform-full-width" appearance="fill">
+                        <mat-label>Icon</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="moduleIcon">
+                        <div class="text-warning">{{showModuleIconValidtionError()}}</div>
+                    </mat-form-field>
+                </div>             
+            </div>
+             <div class="col-md-6">              
+                <div class="mb-3">
+                    <mat-form-field class="userform-full-width" appearance="fill">
+                        <mat-label>Color</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="moduleColor">                        
+                    </mat-form-field>
+                </div>
+                <div class="mb-3">
+                    <mat-form-field class="userform-full-width" appearance="fill">
+                        <mat-label>Sequence</mat-label>
+                        <input matInput type="text" class="form-control" formControlName="moduleSequence">
+                        <div class="text-warning">{{showModuleSequenceValidtionError()}}</div>
+                    </mat-form-field>
+                </div>
+                <div class="mb-3">
+                    <mat-form-field class="userform-full-width" appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput class="form-control" formControlName="description"></textarea>
+                    </mat-form-field>
+                </div>
+            </div> -->

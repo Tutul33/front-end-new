@@ -38,12 +38,21 @@ export class HeaderComponent implements OnInit,OnDestroy {
   }
   loadPP(){
     this.userInfoSubscription = this.store.select(getUserInfo).subscribe((data) => {
+      var propic = (<HTMLImageElement>document.getElementById("profilePicID"));
       if (data.profilePicName != '') {
-        this.profilePicUrl = this.getProfilePicture(data.profilePicName);
-        var propic = (<HTMLImageElement>document.getElementById("profilePicID"));
-        if (propic)
-          propic.src = this.profilePicUrl;
+        this.profilePicUrl = this.getProfilePicture(data.profilePicName);       
+        if (this.profilePicUrl!='') {         
+          if (propic)
+            propic.src = this.profilePicUrl;
+        } else {
+          if (propic)
+          propic.src = "../../../../assets/img/avatars/avatar.jpg";
+        }       
       }
+      else {
+        if (propic)
+        propic.src = "../../../../assets/img/avatars/avatar.jpg";
+      }  
     })
   }
 

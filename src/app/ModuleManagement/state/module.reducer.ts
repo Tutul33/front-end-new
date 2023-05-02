@@ -8,7 +8,8 @@ import { addMenuSuccess, addModuleSuccess, deleteMenuSuccess, deleteModuleSucces
       let module = { ...action.module };
       return {
           ...state,
-          modules: [...state.modules, module]
+          modules: [...state.modules, module],
+          total:action.module.total as number
       }
   }),
   on(updateModuleSuccess, (state, action) => {  

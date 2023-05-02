@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { AuthResponseData } from "../../models/authModels/AuthResponseData";
 import { Observable, of } from "rxjs";
-import { IUserModel, User, UserModel } from "../../models/userModels/user.model";
+import { User, UserModel } from "../../models/userModels/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store/app.state";
 import { autoLogOut } from "../../auth/state/auth.actions";
@@ -40,25 +40,30 @@ export class AuthService {
     }
     signup(model:UserModel): Observable<LoginModel> {
         return this.http.post<LoginModel>(
-            `http://localhost:5207/api/login/UserRegistration`,
+            `${environment.API_URL}/api/login/UserRegistration`,
             model
         );
     }
     sendEmailToChangePassword(email: string): Observable<AuthResponseData> {
         return this.http.post<AuthResponseData>(
-            `http://localhost:5207/api/Login/SendEmailToChangePassword`,
+            `${environment.API_URL}/api/Login/SendEmailToChangePassword`,
             { email }
         );
     }
     decryptPasswordKey(key: string): Observable<any> {
         return this.http.get<any>(
-            `http://localhost:5207/api/Login/DeycryptLoginPasswordKey/${ key }`
+            `${environment.API_URL}/api/Login/DeycryptLoginPasswordKey/${ key }`
             
         );
     }
     changePassword(model: changePass): Observable<any> {
         return this.http.post<any>(
-            `http://localhost:5207/api/Login/ChangePassword`,model          
+            `${environment.API_URL}/api/Login/ChangePassword`,model          
+        );
+    }
+    getProfilePicture(fileName: string): Observable<any> {
+        return this.http.get<any>(
+            `${environment.API_URL}/api/customer/ProfilePic/${ fileName }`            
         );
     }
     formatFirebaseUser(data: AuthResponseData) {
@@ -218,6 +223,7 @@ export class AuthService {
     logout() {
         localStorage.removeItem('userData');
         localStorage.removeItem('modules');
+        localStorage.removeItem('currentModuleAndPath');
         if (this.timeOutInterval) {
             clearTimeout(this.timeOutInterval);
             this.timeOutInterval = null;

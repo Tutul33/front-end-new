@@ -42,7 +42,7 @@ export const addMenuSuccess=createAction(ADD_MENU_SUCCESS,props<{menu:Menu}>())
 export const updateMenu=createAction(UPDATE_MENU,props<{menu:Menu}>())
 export const updateMenuSuccess=createAction(UPDATE_MENU_SUCCESS,props<{menu:Menu}>())
 
-export const deleteMenu=createAction(DELETE_MENU,props<{menu:Menu}>())
+export const deleteMenu=createAction(DELETE_MENU,props<{id:number}>())
 export const deleteMenuSuccess=createAction(DELETE_MENU_SUCCESS,props<{id:number,total:number}>())
 
 export const loadMenu=createAction(LOAD_MENU,props<{search:SearchModel}>())

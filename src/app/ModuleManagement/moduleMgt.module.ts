@@ -15,9 +15,11 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
+import { MatSelectModule } from "@angular/material/select";
 import { MenuPermissionComponent } from './menu-permission/menu-permission.component';
 import { moduleReducer } from "./state/module.reducer";
 import { ModuleEffects } from "./state/module.effects";
+import { AddEditModuleComponent } from './modules/add-edit-module/add-edit-module.component';
 
 const routes: Routes = [
     {
@@ -51,12 +53,14 @@ const routes: Routes = [
         MatDialogModule,
         MatPaginatorModule,
         MatTableModule,
-        MatSortModule
+        MatSortModule,
+        MatSelectModule
     ],
     declarations: [
     ModulesComponent,
     MenusComponent,
-    MenuPermissionComponent
+    MenuPermissionComponent,
+    AddEditModuleComponent
   ]
 })
 export class ModuleManagementModule {

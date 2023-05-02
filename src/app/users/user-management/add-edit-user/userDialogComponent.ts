@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 import { Role } from "src/app/models/commonModels/role.model";
 import { getRoles } from "../../state/users.selector";
 import { CommonService } from "../../../services/commonServices/common.service";
+import { setLoadingSpinner } from "src/app/store/Shared/shared.action";
 @Component({
     selector: 'user-dialog',
     templateUrl: 'userDialog.html',
@@ -76,7 +77,7 @@ import { CommonService } from "../../../services/commonServices/common.service";
           phone: this.userFrom.value.phone,
           roleId:this.userFrom.value.roleId
         }
-       
+        this.store.dispatch(setLoadingSpinner({status:true}));
         if (this.data.customerId as number>0) {
           this.store.dispatch(updateUser({user,uploadedFile:this.files }));
         } else {

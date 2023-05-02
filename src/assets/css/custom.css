@@ -35,3 +35,49 @@
 .cursor-pointer{
     cursor: pointer;
 }
+.form-bg-color{
+    background-color: #f3f0f0;
+}
+.btn-bg-color{
+    background-color: #263B8D !important;
+}
+.text-color-white{
+    color:#fff !important;
+}
+/*Custom Search Start*/
+.div-inputs i{
+    position:absolute;
+    right:10px;
+    top:15px;
+    background-color: #f3f0f0;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.search-icon-position{
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+.input-search{
+    padding: 3px 0 0 20px;
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #f3f0f0;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+/*End*/
+
+/*Table design start*/
+.thead-bg-color{
+    background-color: #D1D4DD;
+}
+/*Table design end*/

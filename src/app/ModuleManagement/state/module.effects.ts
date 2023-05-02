@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { MessageService } from "src/app/services/commonServices/toastr.service";
 import { moduleService } from "src/app/services/moduleServices/module.service";
 import { AppState } from "src/app/store/app.state";
-import { addMenu, addMenuSuccess, addModule, addModuleFail, addModuleSuccess, deleteMenuSuccess, deleteModule, deleteModuleSuccess, loadMenu, loadMenuPermission, loadMenuPermissionSuccess, loadMenuSuccess, loadModule, loadModuleSuccess, updateMenu, updateMenuSuccess, updateModule, updateModuleSuccess } from "./module.actions";
+import { addMenu, addMenuSuccess, addModule, addModuleFail, addModuleSuccess, deleteMenu, deleteMenuSuccess, deleteModule, deleteModuleSuccess, loadMenu, loadMenuPermission, loadMenuPermissionSuccess, loadMenuSuccess, loadModule, loadModuleSuccess, updateMenu, updateMenuSuccess, updateModule, updateModuleSuccess } from "./module.actions";
 import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { setErrorMessage, setLoadingSpinner } from "src/app/store/Shared/shared.action";
 
@@ -69,11 +69,10 @@ export class ModuleEffects{
                     {
                         this.store.dispatch(setLoadingSpinner({status:false}));
                         if (data.isSuccess) {
-                            this.messageService.showSuccessMessage('User is created successfully.');
+                            this.messageService.showSuccessMessage('Module is updated successfully.');
                         } else {
-                            this.messageService.showErrorMessage('User update is failed.');  
-                        }
-                        
+                            this.messageService.showErrorMessage('Module update is failed.');  
+                        }                        
                         return updateModuleSuccess({ module: action.module });
                    }),
                    catchError((errorRes) => {
@@ -92,9 +91,9 @@ export class ModuleEffects{
             switchMap((action) => {
                 return this.moduleService.deleteModule(action.id).pipe(map((data) => {
                     if (data.isSuccess) {
-                      this.messageService.showSuccessMessage('User is deleted sucessfully.');  
+                      this.messageService.showSuccessMessage('Module is deleted sucessfully.');  
                     }else{
-                      this.messageService.showErrorMessage('User delete is failed.');  
+                      this.messageService.showErrorMessage('Module delete is failed.');  
                     }
                     return deleteModuleSuccess({ id: action.id,total:data.total as number });
                 }))
@@ -182,7 +181,7 @@ export class ModuleEffects{
     });
     deleteMenu$ = createEffect(() => {
         return this.action$.pipe(
-            ofType(deleteModule),
+            ofType(deleteMenu),
             switchMap((action) => {
                 return this.moduleService.deleteMenu(action.id).pipe(map((data) => {
                     if (data.isSuccess) {
