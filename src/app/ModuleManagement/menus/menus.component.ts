@@ -7,9 +7,11 @@ import { Menu } from 'src/app/models/menuModels/menu.model';
 import { Modules } from 'src/app/models/moudleNodels/modules.model';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
 import { AppState } from 'src/app/store/app.state';
-import { loadMenu } from '../state/module.actions';
+import { deleteMenu, loadMenu } from '../state/module.actions';
 import { getMenusAll, getModulesAll } from '../state/module.selector';
 import { MatTableDataSource } from '@angular/material/table';
+import { AddEditMenuComponent } from './add-edit-menu/add-edit-menu.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-menus',
@@ -20,8 +22,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class MenusComponent implements OnInit,OnDestroy{
   displayedColumns: string[] = ['menuName', 'moduleName', 'menuIcon', 'menuPath','menuSequence','actions'];
   dataSource: any = [];
-  modulesSubscription?:Subscription;
-  moduleList: Menu[]=[];
+  menuSubscription?:Subscription;
+  menuList: Menu[]=[];
   //Pagination
   public pageNumber: number = 0;
   public pageSize: number = 5;
@@ -39,7 +41,6 @@ export class MenusComponent implements OnInit,OnDestroy{
   searchStr:string='';
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    //this.dataSource.filter = filterValue.trim().toLowerCase();
     if (filterValue!='') {
       this.searchStr=filterValue.trim().toLowerCase();
       this.isPaging=true;
@@ -58,14 +59,51 @@ export class MenusComponent implements OnInit,OnDestroy{
   clearAll(){
     this.searchStr='';
   }
-  addNewModule(){
+  SearchMenu(){
 
   }
-  EditModule(event:Event,module:Modules){
-
+  addNewMenu(){
+   const menu:Menu={
+     menuId: 0,
+     menuName: '',
+     moduleId: 0,
+     menuColor: '',
+     parentId: 0,
+     isSubParent: false,
+     subParentId: 0,
+     menuIcon: '',
+     menuPath: '',
+     description: '',
+     menuSequence: 0
+   }
+   this.openDialog(menu);
   }
-  DeleteModule(event:Event,module:Modules){
-    
+  openDialog(menu:Menu): void {
+    const dialogRef = this.dialog.open(AddEditMenuComponent, {
+      width: '700px',
+      data: menu,
+      exitAnimationDuration:environment.exitAnimationDuration,
+      enterAnimationDuration:environment.enterAnimationDuration
+    });
+
+    dialogRef.afterClosed().subscribe(result => {      
+      this.isPaging=true;
+      if(menu.menuId as number>0){
+        this.loadMenus(this.pageNumber);      
+      }else{
+        this.loadMenus(0);      
+      }      
+    });
+  }
+  EditMenu(event:Event,menu:Menu){
+    this.openDialog(menu);
+  }
+  DeleteMenu(event:Event,module:Menu){
+    if (confirm("Are you sure to delete this record?")) {
+      this.store.dispatch(deleteMenu({id:module.moduleId as number}));
+      this.isPaging=true;
+      this.loadMenus(0);     
+     }
   }
   loadMenus(pageIndex: number) {
     this.pageNumber=pageIndex;
@@ -75,13 +113,13 @@ export class MenusComponent implements OnInit,OnDestroy{
       pageSize: this.pageSize
     }
     this.store.dispatch(loadMenu({search:searchModel}));
-    this.modulesSubscription = this.store.select(getMenusAll).subscribe((data) => {
+    this.menuSubscription = this.store.select(getMenusAll).subscribe((data) => {
       if (data) {
-        this.moduleList = data.menus;
-        this.dataSource = new MatTableDataSource<Menu>(this.moduleList);
+        this.menuList = data.menus;
+        //this.dataSource = new MatTableDataSource<Menu>(this.menuList);
         this.totalRows = data.total;
         //paging info start   
-        this.totalRowsInList = this.moduleList.length;
+        this.totalRowsInList = this.menuList.length;
         if (this.pageNumber == 0 || this.pageNumber == 1) {
           this.pageStart = 1;
           if (this.totalRowsInList < this.pageSize) {
@@ -97,7 +135,7 @@ export class MenusComponent implements OnInit,OnDestroy{
         if (this.isPaging)
           this.setPaging(pageIndex, !this.isPaging);
         else
-          this.pagedItems = this.moduleList;
+          this.pagedItems = this.menuList;
       }
     });
   }
@@ -108,7 +146,7 @@ export class MenusComponent implements OnInit,OnDestroy{
       this.loadMenus(page);
     }
     else {
-      this.pagedItems = this.moduleList;
+      this.pagedItems = this.menuList;
     }
   }
 }

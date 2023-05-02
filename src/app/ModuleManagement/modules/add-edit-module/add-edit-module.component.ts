@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Modules } from 'src/app/models/moudleNodels/modules.model';
 import { CommonService } from 'src/app/services/commonServices/common.service';
 import { AppState } from 'src/app/store/app.state';
-import { addModule } from '../../state/module.actions';
+import { addModule, updateModule } from '../../state/module.actions';
 import { setLoadingSpinner } from 'src/app/store/Shared/shared.action';
 
 @Component({
@@ -107,6 +107,11 @@ export class AddEditModuleComponent implements OnInit {
       moduleSequence: this.moduleForm.value.moduleSequence
     }
     this.store.dispatch(setLoadingSpinner({status:true}));
-    this.store.dispatch(addModule({module}));
+    if (this.data.moduleId>0) {
+      this.store.dispatch(updateModule({module}));
+    } else {
+      this.store.dispatch(addModule({module}));
+    }
+    
   }
 }

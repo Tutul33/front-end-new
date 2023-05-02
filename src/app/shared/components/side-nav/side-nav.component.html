@@ -4,18 +4,18 @@
         <div class="nav">
             <div *ngFor="let module of (modules| async);let im=index ">
                 <div class="p-0" *ngFor="let item of module.menus;let imn=index">
-                    <a class="nav-link" routerLink="{{item.menuPath}}" (click)="onModuleClick($event,module,item)" *ngIf="item.menuList.length==0" >
+                    <a class="nav-link" routerLink="{{item.menuPath}}" (click)="onModuleClick($event,module,item)" *ngIf="!item.menuList?false:true" >
                         <div class="sb-nav-link-icon"><i class="{{item.menuIcon}}"></i></div>
                         {{item.menuName}}
                     </a>
-                    <a class="nav-link collapsed" routerLink="{{item.menuPath}}"  (click)="onModuleClick($event,module,item)" *ngIf="item.menuList.length>0" 
+                    <a class="nav-link collapsed" routerLink="{{item.menuPath}}"  (click)="onModuleClick($event,module,item)" *ngIf="!item.menuList?true:false" 
                         data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false"
                         aria-controls="pagesCollapseAuth">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         {{item.menuName}}
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth"  aria-labelledby="headingOne"  *ngIf="item.menuList.length>0" 
+                    <div class="collapse" id="pagesCollapseAuth"  aria-labelledby="headingOne"  *ngIf="!item.menuList?true:false" 
                         data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" routerLink="{{itemChild.menuPath}}" (click)="onMenuClick($event,module,itemChild)"

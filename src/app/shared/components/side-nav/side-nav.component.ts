@@ -41,10 +41,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
       modulePath: module.modulePath as string,
       menuId: menu.menuId,
       menuPath: menu.menuPath,
-      canCreate: menu.canCreate,
-      canView: menu.canView,
-      canEdit: menu.canEdit,
-      canDelete: menu.canDelete
+      canCreate: menu.canCreate == undefined ? false : true,
+      canView: menu.canView == undefined ? false : true,
+      canEdit: menu.canEdit == undefined ? false : true,
+      canDelete: menu.canDelete == undefined ? false : true
     }
     this.store.dispatch(setCurrentModuleMenuData({ currentModulePath }));
 
@@ -55,10 +55,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
       modulePath: module.modulePath as string,
       menuId: menu.menuId,
       menuPath: menu.menuPath,
-      canCreate: menu.canCreate,
-      canView: menu.canView,
-      canEdit: menu.canEdit,
-      canDelete: menu.canDelete
+      canCreate: menu.canCreate == undefined ? false : true,
+      canView: menu.canView == undefined ? false : true,
+      canEdit: menu.canEdit == undefined ? false : true,
+      canDelete: menu.canDelete == undefined ? false : true
     }
     this.store.dispatch(setCurrentModuleMenuData({ currentModulePath }));
   }
