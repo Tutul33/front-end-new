@@ -1,5 +1,5 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { autoLogOut, autoLogin, dycryptKeyToChangePassword, dycryptKeyToChangePasswordSuccess, loginFail, loginStart, loginSuccess, loginSuccessfirebase, setChangePassword, setChangePasswordFailed, setChangePasswordSuccess, setCurrentModuleMenuData, setCurrentModuleMenuDataSuccess, setForgotPassword, setForgotPasswordSuccess, setToggle, setToggleSuccess, signupStart, signupSuccess } from './auth.actions';
+import { autoLogOut, autoLogin, dycryptKeyToChangePassword, dycryptKeyToChangePasswordSuccess, loadRoles, loadRolesSuccess, loginFail, loginStart, loginSuccess, loginSuccessfirebase, setChangePassword, setChangePasswordFailed, setChangePasswordSuccess, setCurrentModuleMenuData, setCurrentModuleMenuDataSuccess, setForgotPassword, setForgotPasswordSuccess, setToggle, setToggleSuccess, signupStart, signupSuccess } from './auth.actions';
 import { Observable, catchError, exhaustMap, filter, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/commonServices/auth.service';
 import { Injectable } from '@angular/core';
@@ -299,4 +299,14 @@ export class AuthEffects {
             )
         }
     );
+    loadRoles$ = createEffect(() => {
+        return this.action$.pipe(
+            ofType(loadRoles),
+            mergeMap((action) => {
+                return this.authServie.getRoles().pipe(map((roles) => {
+                    return loadRolesSuccess({ roles })
+                }));
+            })
+        );
+    });
 }

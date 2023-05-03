@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SearchModel } from 'src/app/models/commonModels/search.model';
 import { Menu } from 'src/app/models/menuModels/menu.model';
 import { Modules } from 'src/app/models/moudleNodels/modules.model';
@@ -65,12 +65,12 @@ export class MenusComponent implements OnInit,OnDestroy{
     const searchModel: SearchModel = {
       searching: '',
       pageNumber: 0,
-      pageSize: 0
+      pageSize: 0,
+
     }
     this.store.dispatch(loadModule({search:searchModel}));
     this.moduleSubscription=this.store.select(getModulesAll).subscribe((data)=>{
       this.moduleList=data.modules;
-      console.log(data);
     });
   }
   clearAll(){

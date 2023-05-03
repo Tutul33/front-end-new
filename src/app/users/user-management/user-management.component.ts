@@ -1,21 +1,22 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { deleteUser, loadRoles, loadUsers } from '../state/users.action';
+import { deleteUser, loadUsers } from '../state/users.action';
 import { IUserModel } from 'src/app/models/userModels/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './add-edit-user/userDialogComponent';
 import { Observable, Subscription } from 'rxjs';
-import { getRoles, getUserAll} from '../state/users.selector';
+import { getUserAll} from '../state/users.selector';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SearchModel } from 'src/app/models/commonModels/search.model';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
-import { getAthourizedActions, getAthourizedModules } from 'src/app/auth/state/auth.selector';
+import { getAthourizedActions, getAthourizedModules, getRoles } from 'src/app/auth/state/auth.selector';
 import { currentModulePath } from 'src/app/models/commonModels/currentModulePath';
 import { environment } from 'src/environments/environment';
 import { Role } from 'src/app/models/commonModels/role.model';
 import { UserSearchModel } from 'src/app/models/userModels/userSearch.model';
+import { loadRoles } from 'src/app/auth/state/auth.actions';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',

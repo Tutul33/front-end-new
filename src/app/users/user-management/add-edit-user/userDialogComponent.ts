@@ -7,9 +7,9 @@ import { AppState } from "src/app/store/app.state";
 import { addUser, updateUser } from "../../state/users.action";
 import { Observable } from "rxjs";
 import { Role } from "src/app/models/commonModels/role.model";
-import { getRoles } from "../../state/users.selector";
 import { CommonService } from "../../../services/commonServices/common.service";
 import { setLoadingSpinner } from "src/app/store/Shared/shared.action";
+import { getRoles } from "src/app/auth/state/auth.selector";
 @Component({
     selector: 'user-dialog',
     templateUrl: 'userDialog.html',

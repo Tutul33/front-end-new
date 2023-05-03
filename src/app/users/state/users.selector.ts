@@ -10,9 +10,6 @@ const getUserState = createFeatureSelector<UsersState>(USER_STATE_NAME);
 export const getUsers = createSelector(getUserState, (state)=>{
   return state.users;
 });
-export const getRoles = createSelector(getUserState, (state)=>{
-  return state.roles;
-});
 export const getUserTotal = createSelector(getUserState, (state)=>{
   return state.total;
 });

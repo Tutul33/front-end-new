@@ -11,6 +11,8 @@ import { deleteModule, loadMenu, loadModule } from '../state/module.actions';
 import { getModulesAll } from '../state/module.selector';
 import { AddEditModuleComponent } from './add-edit-module/add-edit-module.component';
 import { environment } from 'src/environments/environment';
+import { loadRoles } from 'src/app/auth/state/auth.actions';
+
 
 @Component({
   selector: 'app-modules',
@@ -56,6 +58,10 @@ export class ModulesComponent implements OnInit,OnDestroy{
   }
   ngOnInit(): void {
     this.loadModules(0);
+    this.loadRoles();
+  }
+  loadRoles(){
+    this.store.dispatch(loadRoles());
   }
   clearAll(){
     this.searchStr='';

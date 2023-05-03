@@ -27,3 +27,6 @@ export const getAthourizedActions=createSelector(
     getAuthState,(state)=>{
     return state.currentModulePath;
 });
+export const getRoles = createSelector(getAuthState, (state)=>{
+    return state.roles;
+  });

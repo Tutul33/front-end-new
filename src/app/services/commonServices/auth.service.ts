@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { AuthResponseData } from "../../models/authModels/AuthResponseData";
-import { Observable, of } from "rxjs";
+import { Observable, map, of } from "rxjs";
 import { User, UserModel } from "../../models/userModels/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store/app.state";
@@ -11,6 +11,7 @@ import { changePass } from "../../models/authModels/changePass.model";
 import { LoginModel } from "src/app/models/authModels/login.model";
 import { Modules } from "../../models/moudleNodels/modules.model";
 import { currentModulePath } from "src/app/models/commonModels/currentModulePath";
+import { Role } from "src/app/models/commonModels/role.model";
 @Injectable({
     providedIn: 'root'
 })
@@ -65,6 +66,23 @@ export class AuthService {
         return this.http.get<any>(
             `${environment.API_URL}/api/customer/ProfilePic/${ fileName }`            
         );
+    }
+    getRoles(): Observable<Role[]> {
+        let filter='';
+        let url=`${environment.API_URL}/api/customer/GetRoleList`;
+       
+        return this.http
+            .get(url)
+            .pipe(
+                map((data: any) => {
+                    const roles: Role[] = [];
+                    for (let key in data.list) {
+                        roles.push({ ...data.list[key], id: key });
+                    }                    
+                    return roles;
+                }
+                )
+            );
     }
     formatFirebaseUser(data: AuthResponseData) {
         const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000);

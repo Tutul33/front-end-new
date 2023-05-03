@@ -51,24 +51,7 @@ export class UserService{
             )
         );
 }
-getRoles(): Observable<Role[]> {
-    let filter='';
-    let url=`${environment.API_URL}/api/customer/GetRoleList`;
-   
-    return this.http
-        .get(url)
-        .pipe(
-            map((data: any) => {
-                const roles: Role[] = [];
-                for (let key in data.list) {
-                    roles.push({ ...data.list[key], id: key });
-                }
-                
-                return roles;
-            }
-            )
-        );
-}
+
 addUser(postModel:any): Observable<IUserModel> {
     
     let url=`${environment.API_URL}/api/customer/CreateCustomer`;

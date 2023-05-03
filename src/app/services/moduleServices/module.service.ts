@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { SearchModel } from "src/app/models/commonModels/search.model";
-import { Menu, MenuPermission } from "src/app/models/menuModels/menu.model";
+import { Menu, MenuPermission, SearchMenuPermissions } from "src/app/models/menuModels/menu.model";
 import { MenuModels, MenuPermissionModels } from "src/app/models/menuModels/menuSearch.model";
 import { ModulesModels } from "src/app/models/moudleNodels/moduleSearch.model";
 import { Modules } from "src/app/models/moudleNodels/modules.model";
@@ -117,7 +117,7 @@ export class moduleService{
         return this.http.get<Menu>(url);
     }
     //
-    getMenuPermissions(search:SearchModel): Observable<MenuPermissionModels> {
+    getMenuPermissions(search:SearchMenuPermissions): Observable<MenuPermissionModels> {
         let filter='';
         let url=`${environment.API_URL}/api/module/GetMenuPermissionList`;
         if(search.pageNumber!=undefined || search.pageNumber!=null){
@@ -128,6 +128,12 @@ export class moduleService{
         }
         if (search.searching) {
             filter+='&search='+search.searching;
+        }
+        if (search.moduleId as number>0) {
+            filter+='&moduleId='+search.moduleId;
+        }
+        if (search.roleId as number>0) {
+            filter+='&roleId='+search.roleId;
         }
         if (filter!='') {
             url=url+'?'+filter;

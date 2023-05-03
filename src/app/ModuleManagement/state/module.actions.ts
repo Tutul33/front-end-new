@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { SearchModel } from "src/app/models/commonModels/search.model";
-import { Menu, MenuPermission } from "src/app/models/menuModels/menu.model";
+import { Menu, MenuPermission, SearchMenuPermissions } from "src/app/models/menuModels/menu.model";
 import { MenuModels, MenuPermissionModels } from "src/app/models/menuModels/menuSearch.model";
 import { ModulesModels } from "src/app/models/moudleNodels/moduleSearch.model";
 import { Modules } from "src/app/models/moudleNodels/modules.model";
@@ -74,5 +74,5 @@ export const updateMenuPermissionSuccess=createAction(UPDATE_MENU_PERMISSION_SUC
 export const deleteMenuPermission=createAction(DELETE_MENU_PERMISSION,props<{id:number}>())
 export const deleteMenuPermissionSuccess=createAction(DELETE_MENU_PERMISSION_SUCCESS,props<{id:number,total:number}>())
 
-export const loadMenuPermission=createAction(LOAD_MENU_PERMISSION,props<{search:SearchModel}>())
+export const loadMenuPermission=createAction(LOAD_MENU_PERMISSION,props<{search:SearchMenuPermissions}>())
 export const loadMenuPermissionSuccess=createAction(LOAD_MENU_PERMISSION_SUCCESS,props<{menuPermission:MenuPermissionModels}>())

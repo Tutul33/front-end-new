@@ -22,6 +22,8 @@ export const SET_CHANGE_PASSWORD_SUCCESS = '[Auth state] change password success
 export const SET_CHANGE_PASSWORD_FAILED = '[Auth state] change password failed';
 export const SET_MODULE_MENU_DATA = '[Auth state] Set module and menu path';
 export const SET_MODULE_MENU_DATA_SUCCESS = '[Auth state] Set module and menu path SUCCESS';
+export const GET_ROLE = '[users state] Load role data';
+export const GET_ROLE_SUCCESS = '[users state] Load role data success';
 
 export const loginStartfirebase = createAction(LOGIN_START, props<{ email: string, password: string }>());
 export const loginSuccessfirebase = createAction(LOGIN_SUCCESS, props<{ user: User | null, redirect: boolean }>());
@@ -62,6 +64,9 @@ export const setCurrentModuleMenuData = createAction(SET_MODULE_MENU_DATA,
     props<{currentModulePath:currentModulePath}>());
 export const setCurrentModuleMenuDataSuccess = createAction(SET_MODULE_MENU_DATA_SUCCESS,
         props<{currentModulePath:currentModulePath}>());
+
+        export const loadRoles = createAction(GET_ROLE);
+        export const loadRolesSuccess = createAction(GET_ROLE_SUCCESS,props<{roles:Role[]}>());
 
 
 

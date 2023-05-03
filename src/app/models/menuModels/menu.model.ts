@@ -1,3 +1,5 @@
+import { SearchModel } from "../commonModels/search.model";
+
 export interface Menu{
     menuId:number;
     menuName:string;
@@ -35,7 +37,12 @@ export interface MenuPermission{
     canView:boolean;
     userId:number;
     roleId:number;
+    roleName?:string; 
     isActive?:boolean;    
     isSuccess?:boolean;
     total?:number;
+}
+export interface SearchMenuPermissions extends SearchModel {
+    moduleId?:number,
+    roleId?:number
 }

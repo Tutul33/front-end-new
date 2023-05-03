@@ -7,7 +7,7 @@ import {
     addUser, addUserSuccess,
     updateUser, updateUserSuccess,
     deleteUser, deleteUserSuccess,
-    loadUsers, loadUsersSuccess, addUserFail, loadRoles, loadRolesSuccess
+    loadUsers, loadUsersSuccess, addUserFail
 } from "./users.action";
 import { catchError, exhaustMap, filter, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { Router } from "@angular/router";
@@ -38,16 +38,7 @@ export class UsersEffects {
             })
         );
     });
-    loadRoles$ = createEffect(() => {
-        return this.action$.pipe(
-            ofType(loadRoles),
-            mergeMap((action) => {
-                return this.userService.getRoles().pipe(map((roles) => {
-                    return loadRolesSuccess({ roles })
-                }));
-            })
-        );
-    });
+
     addUser$ = createEffect(() => {
         return this.action$.pipe(
             ofType(addUser),           

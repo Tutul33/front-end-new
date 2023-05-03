@@ -13,8 +13,7 @@ export const DELETE_USER_ACTION = '[users page] delete user';
 export const DELETE_USER_SUCCESS = '[users page] delete user success';
 export const LOAD_USERS = '[users page] LOAD users';
 export const LOAD_USERS_SUCCESS = '[users page] load user success';
-export const GET_ROLE = '[users state] Load role data';
-export const GET_ROLE_SUCCESS = '[users state] Load role data success';
+
 
 export const addUser=createAction(ADD_USER_ACTION,props<{user:IUserModel,uploadedFile:any}>());
 export const addUserSuccess=createAction(ADD_USER_SUCCESS,props<{user:IUserModel}>());
@@ -29,5 +28,5 @@ export const deleteUserSuccess=createAction(DELETE_USER_SUCCESS,props<{id:number
 export const loadUsers=createAction(LOAD_USERS,props<{search:UserSearchModel}>());
 export const loadUsersSuccess=createAction(LOAD_USERS_SUCCESS,props<{users:UserModels}>());
 
-export const loadRoles = createAction(GET_ROLE);
-export const loadRolesSuccess = createAction(GET_ROLE_SUCCESS,props<{roles:Role[]}>());
+// export const loadRoles = createAction(GET_ROLE);
+// export const loadRolesSuccess = createAction(GET_ROLE_SUCCESS,props<{roles:Role[]}>());

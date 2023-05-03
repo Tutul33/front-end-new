@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState } from "./auth.state";
-import { autoLogOut, dycryptKeyToChangePasswordSuccess, loginSuccess, setCurrentModuleMenuData, setCurrentModuleMenuDataSuccess, setForgotPasswordSuccess, setToggleSuccess, signupSuccess } from "./auth.actions";
+import { autoLogOut, dycryptKeyToChangePasswordSuccess, loadRolesSuccess, loginSuccess, setCurrentModuleMenuData, setCurrentModuleMenuDataSuccess, setForgotPasswordSuccess, setToggleSuccess, signupSuccess } from "./auth.actions";
 
 const _authReducer = createReducer(
     initialState,
@@ -50,6 +50,13 @@ const _authReducer = createReducer(
             ...state,
             currentModulePath: action.currentModulePath
         }
+    }),
+    on(loadRolesSuccess, (state, action) => {        
+        return {
+            ...state,
+            roles: action.roles
+        }
+        //return userAdapter.setAll(action.users,state);
     })
 );
 

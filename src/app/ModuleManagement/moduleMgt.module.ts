@@ -21,6 +21,7 @@ import { moduleReducer } from "./state/module.reducer";
 import { ModuleEffects } from "./state/module.effects";
 import { AddEditModuleComponent } from './modules/add-edit-module/add-edit-module.component';
 import { AddEditMenuComponent } from './menus/add-edit-menu/add-edit-menu.component';
+import { EditMenuPermissionComponent } from './menu-permission/edit-menu-permission/edit-menu-permission.component';
 
 const routes: Routes = [
     {
@@ -62,7 +63,8 @@ const routes: Routes = [
     MenusComponent,
     MenuPermissionComponent,
     AddEditModuleComponent,
-    AddEditMenuComponent
+    AddEditMenuComponent,
+    EditMenuPermissionComponent
   ]
 })
 export class ModuleManagementModule {

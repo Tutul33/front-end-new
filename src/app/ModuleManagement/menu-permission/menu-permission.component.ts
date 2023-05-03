@@ -1,15 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SearchModel } from 'src/app/models/commonModels/search.model';
-import { Menu, MenuPermission } from 'src/app/models/menuModels/menu.model';
+import { Menu, MenuPermission, SearchMenuPermissions } from 'src/app/models/menuModels/menu.model';
 import { Modules } from 'src/app/models/moudleNodels/modules.model';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
 import { AppState } from 'src/app/store/app.state';
-import { loadMenu, loadMenuPermission } from '../state/module.actions';
-import { getMenuPermissionsAll, getMenusAll } from '../state/module.selector';
+import { loadMenu, loadMenuPermission, loadModule } from '../state/module.actions';
+import { getMenuPermissionsAll, getMenusAll, getModulesAll } from '../state/module.selector';
 import { MatTableDataSource } from '@angular/material/table';
+import { Role } from 'src/app/models/commonModels/role.model';
+import { getRoles } from 'src/app/auth/state/auth.selector';
+import { loadRoles } from 'src/app/auth/state/auth.actions';
 @Component({
   selector: 'app-menu-permission',
   templateUrl: './menu-permission.component.html',
@@ -20,10 +23,15 @@ export class MenuPermissionComponent implements OnInit,OnDestroy{
   displayedColumns: string[] = ['menuName', 'moduleName', 'canCreate', 'canDelete','canView','canEdit','roleName','actions'];
   dataSource: any = [];
   modulesSubscription?:Subscription;
-  moduleList: MenuPermission[]=[];
+  menuPermissionList: MenuPermission[]=[];
+  moduleId:number=0;
+  roleList:Observable<Role[]>;
+  roleId:number=0;
+  moduleSubscription:Subscription;
+  moduleList:Modules[]=[];
   //Pagination
   public pageNumber: number = 0;
-  public pageSize: number = 5;
+  public pageSize: number = 50;
   public totalRows: number = 0;
   public pager: any = {};
   public pagedItems: any = [];
@@ -53,6 +61,28 @@ export class MenuPermissionComponent implements OnInit,OnDestroy{
   }
   ngOnInit(): void {
     this.loadMenus(0);
+    this.LoadModule();
+    this.loadRole();
+  }
+  loadRole(){    
+    this.store.dispatch(loadRoles());
+    this.roleList=this.store.select(getRoles);
+  }
+  OnRoleChange(event:Event){
+    this.loadMenus(0);
+  }
+ 
+  LoadModule(){
+    const searchModel: SearchModel = {
+      searching: '',
+      pageNumber: 0,
+      pageSize: 0,
+
+    }
+    this.store.dispatch(loadModule({search:searchModel}));
+    this.moduleSubscription=this.store.select(getModulesAll).subscribe((data)=>{
+      this.moduleList=data.modules;
+    });
   }
   clearAll(){
     this.searchStr='';
@@ -60,24 +90,27 @@ export class MenuPermissionComponent implements OnInit,OnDestroy{
   addNewModule(){
 
   }
-  EditModule(event:Event,module:Modules){
+  EditMenuPermission(event:Event,module:MenuPermission){
 
   }
-  DeleteModule(event:Event,module:Modules){
-    
+  
+  OnModuleChange(event: Event) {
+    this.loadMenus(0);   
   }
   loadMenus(pageIndex: number) {
     this.pageNumber=pageIndex;
-    const searchModel: SearchModel = {
+    const searchModel: SearchMenuPermissions = {
       searching: this.searchStr,
       pageNumber: pageIndex,
-      pageSize: this.pageSize
+      pageSize: this.pageSize, 
+      moduleId:this.moduleId,
+      roleId:this.roleId     
     }
     this.store.dispatch(loadMenuPermission({search:searchModel}));
     this.modulesSubscription = this.store.select(getMenuPermissionsAll).subscribe((data) => {
       if (data) {
-        this.moduleList = data.menuPermissions;
-        this.dataSource = new MatTableDataSource<MenuPermission>(this.moduleList);
+        this.menuPermissionList = data.menuPermissions;
+        //this.dataSource = new MatTableDataSource<MenuPermission>(this.menuPermissionList);
         this.totalRows = data.total;
         //paging info start   
         this.totalRowsInList = this.moduleList.length;
