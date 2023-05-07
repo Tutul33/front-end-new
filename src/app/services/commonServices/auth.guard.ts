@@ -10,7 +10,6 @@ export class AuthGuard {
 
     }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        
         return this.store.select(isAuthenticated).pipe(
             map((authenticate)=>{
                 if (!authenticate) {
