@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { AuthResponseData } from "../../models/authModels/AuthResponseData";
-import { Observable, map, of } from "rxjs";
+import { Observable, catchError, map, of } from "rxjs";
 import { User, UserModel } from "../../models/userModels/user.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store/app.state";
@@ -62,10 +62,13 @@ export class AuthService {
             `${environment.API_URL}/api/Login/ChangePassword`,model          
         );
     }
-    getProfilePicture(fileName: string): Observable<any> {
-        return this.http.get<any>(
-            `${environment.API_URL}/api/customer/ProfilePic/${ fileName }`            
-        );
+    
+    getProfilePicture(fileName:string): any {
+        let _apiRout = `${environment.API_URL}/api/customer/ProfilePic/${ fileName }`;
+         return this.http.get(_apiRout, { responseType: 'blob' })
+            .pipe(map((res: any) => {
+                return res;               
+            }));
     }
     getRoles(): Observable<Role[]> {
         let filter='';

@@ -6,18 +6,20 @@ import { getToggle, getUserInfo, isAuthenticated } from 'src/app/auth/state/auth
 import { autoLogOut, setToggle } from 'src/app/auth/state/auth.actions';
 import { UserModel } from 'src/app/models/userModels/user.model';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/commonServices/auth.service';
+import { CommonService } from 'src/app/services/commonServices/common.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit,OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
   IsAuthenticated?: Observable<boolean>;
   user!: Observable<UserModel>;
   isToggled?: boolean = false;
-  userInfoSubscription!:Subscription;
-  profilePicUrl:string='';
-  constructor(private store: Store<AppState>) {}
+  userInfoSubscription!: Subscription;
+  profilePicUrl: string = '';
+  constructor(private store: Store<AppState>, private authSvc: AuthService, private cmnSvc: CommonService) { }
   ngOnDestroy(): void {
     this.userInfoSubscription.unsubscribe();
   }
@@ -30,32 +32,30 @@ export class HeaderComponent implements OnInit,OnDestroy {
     });
     this.loadPP();
   }
-  getProfilePicture(fileName?: string) {
-    if (fileName != undefined) {
-      return environment.API_URL + "/api/customer/ProfilePic/" + fileName;
-    }
-    return '';
-  }
-  loadPP(){
-    this.userInfoSubscription = this.store.select(getUserInfo).subscribe((data) => {
-      var propic = (<HTMLImageElement>document.getElementById("profilePicID"));
-      if (data.profilePicName != '') {
-        this.profilePicUrl = this.getProfilePicture(data.profilePicName);       
-        if (this.profilePicUrl!='') {         
-          if (propic)
-            propic.src = this.profilePicUrl;
+  getProfilePicByte(fileName: string,imgTag:any) {
+    if (fileName != '' || fileName != undefined) {
+      this.authSvc.getProfilePicture(fileName).subscribe((data: any) => {
+        if (data!=undefined || data!=null) 
+        {             
+        this.cmnSvc.blobToBase64Image(data, imgTag);
         } else {
-          if (propic)
-          propic.src = "../../../../assets/img/avatars/avatar.jpg";
-        }       
+          imgTag.src = "../../../../assets/img/avatars/avatar.jpg";
+        }
+      })
+    }
+  }
+  loadPP() {
+    this.userInfoSubscription = this.store.select(getUserInfo).subscribe((data) => {
+      var imgTag = (<HTMLImageElement>document.getElementById("profilePicID"));
+      if (data.profilePicName != '') {
+        this.getProfilePicByte(data.profilePicName,imgTag);
       }
       else {
-        if (propic)
-        propic.src = "../../../../assets/img/avatars/avatar.jpg";
-      }  
+        if (imgTag)
+        imgTag.src = "../../../../assets/img/avatars/avatar.jpg";
+      }
     })
   }
-
   onLogOut(event: Event) {
     event.preventDefault();
     this.store.dispatch(autoLogOut());

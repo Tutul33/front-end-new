@@ -3,7 +3,7 @@ import { MessageService } from "../commonServices/toastr.service";
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {
-    constructor(private _messageService:MessageService) {
+    constructor(private _messageService: MessageService) {
 
     }
     FormData(postingModel: any, uploadedFile: any) {
@@ -44,4 +44,18 @@ export class CommonService {
         }
         return files;
     }
+    blobToBase64Image(blobData: any, htmlTag: any) {
+        this.blobToBase64(blobData).then(res => {
+            htmlTag.src = res + '';
+        });
+    }
+    blobToBase64(blob: any) {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        return new Promise(resolve => {
+            reader.onloadend = () => {
+                resolve(reader.result);
+            };
+        });
+    };
 }
