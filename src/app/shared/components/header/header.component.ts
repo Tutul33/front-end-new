@@ -47,14 +47,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loadPP() {
     this.userInfoSubscription = this.store.select(getUserInfo).subscribe((data) => {
       var imgTag = (<HTMLImageElement>document.getElementById("profilePicID"));
-      if (data.profilePicName != '') {
+      if (data!=null) {
+        if(data.profilePicName!='')
         this.getProfilePicByte(data.profilePicName,imgTag);
+        else{
+           this.showProfilePic(imgTag);
+        }
       }
       else {
-        if (imgTag)
-        imgTag.src = "../../../../assets/img/avatars/avatar.jpg";
+        this.showProfilePic(imgTag);
       }
     })
+  }
+  showProfilePic(imgTag:any){
+    if (imgTag)
+        imgTag.src = "../../../../assets/img/avatars/avatar.jpg";
   }
   onLogOut(event: Event) {
     event.preventDefault();

@@ -146,14 +146,15 @@ export class AuthService {
     }
     runTimeOutInterval(user: UserModel) {
         const todaysDate = new Date().getTime();
-        const timeInterval = new Date(user.expireDateData).getDate() - todaysDate;
+        const expireDate = new Date(user.expireDateData).getTime();
+        const timeInterval = expireDate - todaysDate;
         this.timeOutInterval = setTimeout(() => {
             this.store.dispatch(autoLogOut());
         }, timeInterval)
     }
     runTimeOutIntervalFirebase(user: User) {
         const todaysDate = new Date().getTime();
-        const expirationDate = user.expireDate.getDate();
+        const expirationDate = user.expireDate.getTime();
         const timeInterval = expirationDate - todaysDate;
         this.timeOutInterval = setTimeout(() => {
             this.store.dispatch(autoLogOut());
