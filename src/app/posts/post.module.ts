@@ -41,5 +41,4 @@ const routes: Routes = [
   ]
 })
 export class PostModule {
-
 }

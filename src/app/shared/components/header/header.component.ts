@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   showProfilePic(imgTag:any){
     if (imgTag)
-        imgTag.src = "../../../../assets/img/avatars/avatar.jpg";
+        imgTag.src = "assets/img/avatars/avatar.jpg";
   }
   onLogOut(event: Event) {
     event.preventDefault();

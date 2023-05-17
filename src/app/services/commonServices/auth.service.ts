@@ -28,7 +28,7 @@ export class AuthService {
     }
     login(email: string, password: string): Observable<LoginModel> {
         return this.http.post<LoginModel>(
-            `http://localhost:5207/api/login/userlogin`,
+            `${environment.API_URL}/api/login/userlogin`,
             { userName:email, password}
         );
     }
