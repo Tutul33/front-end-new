@@ -22,6 +22,8 @@ import { CustomSerializer } from './router/custom-seralizer';
 import { SideNavComponent } from './shared/components/side-nav/side-nav.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ErrorInterceptor } from './services/commonServices/Error.Interceptor';
+import { AddRoleComponent } from './Roles/add-role/add-role.component';
+import { RoleListComponent } from './Roles/role-list/role-list.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +32,7 @@ import { ErrorInterceptor } from './services/commonServices/Error.Interceptor';
     HeaderComponent,
     LoadingSpinnerComponent,
     SideNavComponent,
-    FooterComponent
-   
+    FooterComponent   
   ],
   imports: [
     BrowserModule,
