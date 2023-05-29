@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
@@ -6,14 +6,15 @@ import { AppState } from 'src/app/store/app.state';
 import { loadRole } from '../state/roles.actions';
 import { Role, RoleModels } from 'src/app/models/rolesModel/role.model';
 import { Subscription } from 'rxjs';
-import { getRoles } from '../state/roles.selector';
+import { getRoles, getRolesAll } from '../state/roles.selector';
+import { SearchModel } from 'src/app/models/commonModels/search.model';
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.css'],
   providers:[PagerService]
 })
-export class RoleListComponent implements OnInit {
+export class RoleListComponent implements OnInit,OnDestroy {
   roleList: Role[]=[];
   roleSubscription?:Subscription;
   //Pagination
@@ -49,18 +50,20 @@ export class RoleListComponent implements OnInit {
   SearchRole(){
 
   }
-  addNewRole(){
-
+ 
+  ngOnDestroy(): void {
+    this.roleSubscription?.unsubscribe();
   }
   LoadRoles(pageIndex:number){
-    const searchModel: RoleModels = {
+    const searchModel: SearchModel = {
       searching: '',
       pageNumber: pageIndex,
       pageSize: this.pageSize,
-      total: 0
+      //total: 0
     }
     this.store.dispatch(loadRole({search:searchModel}));
-    this.roleSubscription=this.store.select(getRoles).subscribe((data:any)=>{
+    this.roleSubscription=this.store.select(getRolesAll).subscribe((data:any)=>{
+     if(data.roles){
       this.roleList=data.roles;
       this.totalRows = data.total;
       console.log(data);
@@ -82,6 +85,7 @@ export class RoleListComponent implements OnInit {
         this.setPaging(pageIndex, !this.isPaging);
       else
         this.pagedItems = this.LoadRoles;
+     }
     });
   }
   //Set Page
@@ -93,5 +97,14 @@ export class RoleListComponent implements OnInit {
     else {
       this.pagedItems = this.roleList;
     }
+  }
+  addNewRole(){
+
+  }
+  EditRole(e:any,item:any){
+
+  }
+  DeleteRole(e:any,item:any){
+    
   }
 }

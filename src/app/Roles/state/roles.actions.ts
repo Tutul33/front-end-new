@@ -22,5 +22,5 @@ export const updateRoleSuccess=createAction(UPDATE_ROLE_SUCCESS,props<{role:Role
 export const deleteRole=createAction(DELETE_ROLE,props<{id:number}>())
 export const deleteRoleSuccess=createAction(DELETE_ROLE_SUCCESS,props<{id:number,total:number}>())
 
-export const loadRole=createAction(LOAD_ROLE,props<{search:RoleModels}>())
+export const loadRole=createAction(LOAD_ROLE,props<{search:SearchModel}>())
 export const loadRoleSuccess=createAction(LOAD_ROLE_SUCCESS,props<{roles:RoleModels}>())

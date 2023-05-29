@@ -23,7 +23,6 @@ export class RoleEffects{
         return this.action$.pipe(
             ofType(loadRole),
             mergeMap((action) => {
-                debugger
                 return this.roleService.getRoles(action.search).pipe(map((roles) => {
                     return loadRoleSuccess({ roles })
                 }));

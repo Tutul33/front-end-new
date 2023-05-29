@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, map } from "rxjs";
+import { SearchModel } from "src/app/models/commonModels/search.model";
 import { Role, RoleModels } from "src/app/models/rolesModel/role.model";
 import { UserModels } from "src/app/models/userModels/user.model";
 import { AppState } from "src/app/store/app.state";
@@ -13,9 +14,8 @@ import { environment } from "src/environments/environment";
 export class RoleService{
  constructor(private store:Store<AppState>,private http:HttpClient){
  }   
- getRoles(search:RoleModels): Observable<RoleModels> {
+ getRoles(search:SearchModel): Observable<RoleModels> {
     let filter='';
-    debugger
     let url=`${environment.API_URL}/api/role/GetRoleList`;
     if(search.pageNumber!=undefined || search.pageNumber!=null){
         filter+='PageNumber='+search.pageNumber;
@@ -35,7 +35,8 @@ export class RoleService{
     return this.http
         .get(url)
         .pipe(
-            map((data: any) => {
+            map((response: any) => {
+                let data=response.result;
                 const roles: Role[] = [];
                 for (let key in data.list) {
                     roles.push({ ...data.list[key], id: key });

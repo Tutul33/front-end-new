@@ -2,14 +2,14 @@
     <div class="col-md-12"><h2>Role Management</h2></div>
     <div class="col-md-12 mb-3">   
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="d-flex div-inputs">
             <i class="fa fa-search search-icon-position"></i>
             <input class="input-search" (keyup)="applyFilter($event)"  type="text" placeholder="Role Name">      
           </div>
         </div>
         
-        <div class="col-md-6">
+        <div class="col-md-8">
           <button class="btn btn-sm btn-outline-secondary float-end" (click)="SearchRole()">Search</button>
         </div>
       </div>
@@ -32,8 +32,8 @@
                <td>{{item.roleName}}</td>
                <td>{{item.isActive}}</td>
                <td>
-                 <!-- <a class="text-secondary cursor-pointer" (click)="EditMenu($event,item)"><i class="fa fa-edit"></i></a>
-                 <a class="text-secondary cursor-pointer p-2" (click)="DeleteMenu($event,item)"><i class="fa fa-trash"></i></a> -->
+                 <a class="text-secondary cursor-pointer" (click)="EditRole($event,item)"><i class="fa fa-edit"></i></a>
+                 <a class="text-secondary cursor-pointer p-2" (click)="DeleteRole($event,item)"><i class="fa fa-trash"></i></a>
                </td>
              </tr>
            </tbody>
