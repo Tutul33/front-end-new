@@ -25,6 +25,11 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
+    path:'roles',
+    loadChildren:()=>import('./Roles/roles.module').then((m)=>m.RolesModule),
+    canActivate:[AuthGuard]
+  },
+  {
     path:'modules',
     loadChildren:()=>import('./ModuleManagement/moduleMgt.module').then((m)=>m.ModuleManagementModule),
     canActivate:[AuthGuard]
