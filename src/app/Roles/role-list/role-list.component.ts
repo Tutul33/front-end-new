@@ -3,11 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { PagerService } from 'src/app/services/commonServices/paginator.service';
 import { AppState } from 'src/app/store/app.state';
-import { loadRole } from '../state/roles.actions';
+import { deleteRole, loadRole } from '../state/roles.actions';
 import { Role, RoleModels } from 'src/app/models/rolesModel/role.model';
 import { Subscription } from 'rxjs';
 import { getRoles, getRolesAll } from '../state/roles.selector';
 import { SearchModel } from 'src/app/models/commonModels/search.model';
+import { AddRoleComponent } from '../add-role/add-role.component';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
@@ -99,12 +101,36 @@ export class RoleListComponent implements OnInit,OnDestroy {
     }
   }
   addNewRole(){
-
+   this.openDialog();
   }
-  EditRole(e:any,item:any){
-
+  EditRole(e:Event,role:Role){
+    this.openDialog(role);
   }
-  DeleteRole(e:any,item:any){
-    
+  openDialog(role?:Role): void {
+    const dialogRef = this.dialog.open(AddRoleComponent, {
+      width: '700px',
+      data: role,
+      exitAnimationDuration:environment.exitAnimationDuration,
+      enterAnimationDuration:environment.enterAnimationDuration
+    });
+
+    dialogRef.afterClosed().subscribe(result => {      
+      this.isPaging=true;
+      if(role?.roleId as number>0){
+        this.LoadRoles(this.pageNumber);      
+      }else{
+        this.LoadRoles(0);      
+      }      
+    });
+  }
+  EditMenu(event:Event,role:Role){
+    this.openDialog(role);
+  }
+  DeleteRole(e:Event,role:Role){
+    if (confirm("Are you sure to delete this record?")) {
+      this.store.dispatch(deleteRole({id:role.roleId as number}));
+      this.isPaging=true;
+      this.LoadRoles(0);     
+     }
   }
 }

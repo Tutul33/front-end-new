@@ -54,7 +54,7 @@ export class RoleService{
 
 addRole(postModel:any): Observable<Role> {
     
-    let url=`${environment.API_URL}/api/role/CreateRole`;
+    let url=`${environment.API_URL}/api/role/AddRole`;
     return this.http.post<Role>(url, postModel);
 }
 updateRole(postModel:any) {

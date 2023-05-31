@@ -37,9 +37,10 @@ export class RoleEffects{
                 //var postModel=this.roleService.FormData(action.user,action.uploadedFile);
                 return this.roleService.addRole(action.role).pipe(
                     map((data:any) => {
+                        var result=data.result;
                         this.store.dispatch(setLoadingSpinner({ status: false }))
                         this.store.dispatch(setErrorMessage({ message: '' }))
-                        if (data.isSuccess) {
+                        if (result.isSuccess) {
                             this.messageService.showSuccessMessage('Role is created successfully.');
                             const role = { ...action.role, id: data.roleId }
                             return addRoleSuccess({ role });                            

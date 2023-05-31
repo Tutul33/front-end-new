@@ -1,1 +1,27 @@
-<p>add-role works!</p>
+<h1 mat-dialog-title>Role {{title}}</h1>
+<div mat-dialog-content class="">
+    <form [formGroup]="roleForm" class="border rounded form-bg-color" #f="ngForm">
+        <div class="m-5 mat-elevation-z8">            
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Name</span></div>
+                <div class="col-md-6">
+                    <input matInput type="text" class="form-control" formControlName="roleName">
+                    <div class="text-warning">{{showRoleNameValidtionError()}}</div> 
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6"><span class="text-center">Sequence</span></div>
+                <div class="col-md-6">
+                    <input matInput type="text" class="form-control" formControlName="sequence">
+                </div>
+            </div>
+         
+           </div>
+    </form>
+</div>
+<div mat-dialog-actions>       
+            <button mat-button class="float-end"  (click)="onNoClick()">Cancel</button>
+            <button mat-raised-button [mat-dialog-close]="data" class="float-end" color="primary" id="btnCreateRole" [disabled]="!f.valid"
+        (click)="onRoleSubmit()"><i class="fa fa-save"></i>Save</button>         
+</div>
