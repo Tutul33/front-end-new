@@ -47,8 +47,7 @@ export class RoleEffects{
                         } else {
                             this.messageService.showErrorMessage('Role creation is failed.Please try again.');
                             return addRoleFail();
-                        }
-                       
+                        }                       
                     }),
                     catchError((errorRes) => {
                         this.store.dispatch(setLoadingSpinner({ status: false }))
