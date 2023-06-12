@@ -42,6 +42,10 @@ const routes: Routes = [
   {
     path:'auth',
     loadChildren:()=>import('./auth/auth.module').then((m)=>m.AuthModule),
+  },
+  {
+    path:'tib',
+    loadChildren:()=>import('./tib/tib.module').then((m)=>m.TibModule)
   }
 ];
 

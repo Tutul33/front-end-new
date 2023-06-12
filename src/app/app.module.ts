@@ -22,9 +22,7 @@ import { CustomSerializer } from './router/custom-seralizer';
 import { SideNavComponent } from './shared/components/side-nav/side-nav.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ErrorInterceptor } from './services/commonServices/Error.Interceptor';
-import { AddRoleComponent } from './Roles/add-role/add-role.component';
-import { RoleListComponent } from './Roles/role-list/role-list.component';
-
+import { TibOperationComponent } from './tib/tib-operation/tib-operation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +30,7 @@ import { RoleListComponent } from './Roles/role-list/role-list.component';
     HeaderComponent,
     LoadingSpinnerComponent,
     SideNavComponent,
-    FooterComponent   
+    FooterComponent 
   ],
   imports: [
     BrowserModule,

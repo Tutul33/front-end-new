@@ -34,7 +34,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         EffectsModule.forFeature([UsersEffects]),
         StoreModule.forFeature(USER_STATE_NAME, userReducer),
-
+      
         //
         MatSlideToggleModule,
         MatButtonModule,

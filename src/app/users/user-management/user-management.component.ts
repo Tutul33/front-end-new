@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { Role } from 'src/app/models/commonModels/role.model';
 import { UserSearchModel } from 'src/app/models/userModels/userSearch.model';
 import { loadRoles } from 'src/app/auth/state/auth.actions';
+
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -193,5 +194,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
     this.loadUser(0);     
    }
   }
+  
 }
 
