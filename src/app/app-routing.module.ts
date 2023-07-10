@@ -35,6 +35,11 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
+    path:'chats',
+    loadChildren:()=>import('./chat/chat.module').then((m)=>m.ChatModule),
+    canActivate:[AuthGuard]
+  },
+  {
     path:'posts/details/:id',
     component:SinglePostComponent,
     canActivate:[AuthGuard]
