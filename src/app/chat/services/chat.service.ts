@@ -13,7 +13,7 @@ export class ChatService{
     //Chats
     getChats(search:SearchModel): Observable<ChatModels> {
         let filter='';
-        let url=`${environment.API_URL}/api/module/GetModuleList`;
+        let url=`${environment.API_URL}/api/chat/GetChatList`;
         if(search.pageNumber!=undefined || search.pageNumber!=null){
             filter+='PageNumber='+search.pageNumber;
         }

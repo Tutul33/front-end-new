@@ -63,6 +63,9 @@ export class UserModel{
     get expireDateData() {
         return this.expireDate;
     }
+    get userLoginId() {
+        return this.loginId;
+    }
     get userToken() {
         return this.token;
     }

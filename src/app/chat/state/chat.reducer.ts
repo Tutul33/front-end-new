@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store"
 import { initialState } from "./chat.state";
 import { addChatSuccess, deleteChatSuccess, loadChatSuccess, updateChatSuccess } from "./chat.actions";
 
- export const _moduleReducer=createReducer(initialState,
+ export const _chatReducer=createReducer(initialState,
    //Chat
    on(addChatSuccess,(state,action)=>{
       let chat = { ...action.chat };
@@ -40,6 +40,6 @@ import { addChatSuccess, deleteChatSuccess, loadChatSuccess, updateChatSuccess }
   }),
   
  );
- export function moduleReducer(state: any, action: any) {
-   return _moduleReducer(state, action);
+ export function chatReducer(state: any, action: any) {
+   return _chatReducer(state, action);
 }
