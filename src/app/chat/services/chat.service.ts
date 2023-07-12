@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { SearchModel } from "src/app/models/commonModels/search.model";
@@ -46,7 +46,10 @@ export class ChatService{
     }
     addChat(user: ChatModel): Observable<ChatModel> {
         let url=`${environment.API_URL}/api/chat/CreateChat`;
-        return this.http.post<ChatModel>(url, user);
+        
+        let formData=new FormData();
+        formData.append('chat',JSON.stringify(user));
+        return this.http.post<ChatModel>(url, formData);
     }
     updateChat(user: ChatModel) {
         let url=`${environment.API_URL}/api/chat/UpdateChat`;

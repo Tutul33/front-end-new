@@ -28,8 +28,7 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "@microsoft/signalr/dist/browser/signalr.js"
+            "scripts": [            
             ]
           },
           "configurations": {

@@ -10,69 +10,66 @@ import { UserModel } from 'src/app/models/userModels/user.model';
 import { Subscription } from 'rxjs';
 import { SearchModel } from 'src/app/models/commonModels/search.model';
 import { getChats } from '../state/chat.selector';
-declare var signalR: any;
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+
 @Component({
   selector: 'app-chatting',
   templateUrl: './chatting.component.html',
   styleUrls: ['./chatting.component.css']
 })
 export class ChattingComponent implements OnInit {
-  loggedUserId:number;
-  chattingList:ChatModel[]=[];
-  constructor(private store: Store<AppState> ) {
+  loggedUserId: number;
+  chattingList: ChatModel[] = [];
+  private hubConnectionBuilder!: HubConnection;
+  offers: any[] = [];
+  constructor(private store: Store<AppState>) {
 
   }
   ngOnInit(): void {
-    this.store.select(getUserInfo).subscribe((user:any)=>{
-      this.fromUserId=user.customerId;
+    this.store.select(getUserInfo).subscribe((user: any) => {
+      this.fromUserId = user.customerId;
     })
     this.signalrConn();
   }
-  chatSubscription:Subscription;
-  loadAllChat(){
-    let searchModel:SearchModel={
+  chatSubscription: Subscription;
+  loadAllChat() {
+    let searchModel: SearchModel = {
 
     }
-    this.store.dispatch(loadChat({search:searchModel}));
-    this.chatSubscription=this.store.select(getChats).subscribe((data:any)=>{
+    this.store.dispatch(loadChat({ search: searchModel }));
+    this.chatSubscription = this.store.select(getChats).subscribe((data: any) => {
       if (data) {
-        this.chattingList=data;
+        this.chattingList = data;
       }
     });
   }
   signalrConn() {
-    let connection = new signalR.HubConnectionBuilder()
-      .withUrl(`${environment.API_URL}` + "/api/broadcast")
-      .build();
-
-    connection.on("BroadcastMessage", (data: any) => {
-      console.log(data);
-      this.chattingList.push(data);
+    let url = `${environment.API_URL}` + "/api/broadcast";
+    this.hubConnectionBuilder = new HubConnectionBuilder().withUrl(url).configureLogging(LogLevel.Information).build();
+    this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
+    this.hubConnectionBuilder.on('BroadcastMessage', (chat: ChatModel) => {
+      debugger      
+      this.chattingList.push(chat);
     });
-
-    connection.start()
-      .then(() =>
-       connection.invoke("BroadcastMessage", "Hello")
-       );
   }
-  message:string;
-  fromUserId:number;
-  toUserId:number;
-  sendMessage(){
-    let chat:ChatModel={
+  message: string;
+  fromUserId: number;
+  toUserId: number;
+  sendMessage() {
+    let chat: ChatModel = {
       id: 0,
       messages: this.message,
       mediaUrl: '',
       mediaExt: '',
-      fromUserId:this.fromUserId,
-      toUserId:this.toUserId,
+      fromUserId: this.fromUserId,
+      toUserId: this.toUserId,
       isActive: false
     }
-    this.store.dispatch(setLoadingSpinner({status:true}));
-    if (chat.id>0) {
-     this.store.dispatch(updateChat({chat}));
+    this.store.dispatch(setLoadingSpinner({ status: true }));
+    if (chat.id > 0) {
+      this.store.dispatch(updateChat({ chat }));
     } else {
-     this.store.dispatch(addChat({chat}));
+      this.store.dispatch(addChat({ chat }));
     }
   }
 

@@ -16,6 +16,8 @@ export const LOAD_CHAT_SUCCESS="[CHAT Page] LOAD CHAT success";
 //CHAT Actions
 export const addChat=createAction(ADD_CHAT,props<{chat:ChatModel}>())
 export const addChatSuccess=createAction(ADD_CHAT_SUCCESS,props<{chat:ChatModel}>())
+export const addChatFail=createAction(ADD_CHAT_FAIL)
+
 
 export const updateChat=createAction(UPDATE_CHAT,props<{chat:ChatModel}>())
 export const updateChatSuccess=createAction(UPDATE_CHAT_SUCCESS,props<{chat:ChatModel}>())
